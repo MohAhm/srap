@@ -5,7 +5,6 @@
 
         <!-- Required meta tags always come first -->
         <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
         
         <!-- Google Font -->
@@ -19,13 +18,15 @@
     </head>
     <body>        
         <!-- topbar -->
-        <nav id="topbar" class="navbar navbar-fixed-top">
-            <a class="navbar-brand" href="#"><img class="img-fluid" src="img/mdh_logo.png" alt=""></a>
+        <nav id="topbar" class="navbar navbar-fixed-top py-1">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#"><img class="img-fluid" src="img/mdh_logo.png" alt="logo"></a>
 
-            <div id="navbar">
-                <div class="float-xs-right">
-                    <p class="d-inline mr-3">Welcome: <span class="name">User Name</span></p> 
-                    <button type="submit" class="btn btn-outline-warning">Logout</button>
+                <div id="navbar">
+                    <div class="float-xs-right">
+                        <p class="d-inline mr-3 hidden-sm-down">Welcome: <span class="name">User Name</span></p> 
+                        <button type="submit" class="btn btn-outline-warning">Logout</button>
+                    </div>
                 </div>
             </div>
         </nav>
@@ -34,41 +35,41 @@
         <!-- content--> 
         <div class="container-fluid">
             <div class="row">
-                <!-- sidebar--> 
-                <div id="sidebar" class="col-md-3">
-                    <ul class="nav nav-sidebar">
-                        <li id="add" class="active"><a href="index.html">Add Booking</a></li>
-                        <li id="view"><a href="rooms.html">Available Rooms</a></li>
-                    </ul>
-                </div>
+                <!-- sidebar-->   
+                <ul id="sidebar" class="nav nav-pills nav-stacked col-md-3 col-sm-2 col-xs-2">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">
+                            <img class="icon" src="img/add.png" alt="icon">
+                            <span class="hidden-sm-down">Add Booking</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="rooms.html">
+                            <img class="icon" src="img/view.png" alt="icon">
+                            <span class="hidden-sm-down">Rooms</span>
+                        </a>
+                    </li>
+                </ul>
                 <!-- end sidebar--> 
                 
                 <!-- main -->
-                <div id="main" class="col-md-9 offset-md-3">
-                    <h1 class="mb-3">Add Booking</h1>
+                <div id="main" class="col-md-9 offset-md-3 col-sm-10 offset-sm-2 offset-xs-1">
+                    <h1 class="mb-2 pl-1">Add Booking</h1>
                     
-                    <div class="container">
+                    <div class="container-fluid">
                         <div class="row">
                             <div class="col-md-4">
                                 <!-- form-->
                                 <form>
-                                    <fieldset class="form-group">
+                                    <fieldset class="form-group mb-2">
                                         <label for="from">Date From:</label>
-                                        <input type="text" class="form-control" id="from" placeholder="Today">
+                                        <input type="text" class="form-control" id="from" placeholder="mm/dd/yyyy">
                                     </fieldset>
-                                    <fieldset class="form-group">
+                                    <fieldset class="form-group mb-2">
                                         <label for="to">Date To:</label>
                                         <input type="text" class="form-control" id="to" placeholder="mm/dd/yyyy">
                                     </fieldset>
-                                    <fieldset class="form-group">
-                                        <label for="room">Room Name:</label>
-                                        <select class="form-control" id="room" name="room_name">
-                                            <option value="U1-048">U1-048</option>
-                                            <option value="U1-052">U1-048</option>
-                                            <option value="U1-057">U1-057</option>
-                                        </select> 
-                                    </fieldset>
-                                    <fieldset class="form-group">
+                                    <fieldset class="form-group mb-2">
                                         <label for="seats">Seats:</label>
                                         <select class="form-control" id="seats" name="seats_num">
                                             <option value="1">1</option>
@@ -78,11 +79,19 @@
                                             <option value="5">5</option>
                                         </select> 
                                     </fieldset>
-                                    <fieldset class="form-group">
+                                    <fieldset class="form-group mb-2">
+                                        <label for="room">Room Name:</label>
+                                        <select class="form-control" id="room" name="room_name">
+                                            <option value="U1-048">U1-048</option>
+                                            <option value="U1-052">U1-048</option>
+                                            <option value="U1-057">U1-057</option>
+                                        </select> 
+                                    </fieldset>
+                                    <fieldset class="form-group mb-2">
                                         <label for="name">Name:</label>
                                         <input type="text" class="form-control" id="name" placeholder="User Name" disabled>
-                                    </fieldset>
-                                    <button type="submit" class="btn btn-primary">Book</button>
+                                    </fieldset>                                   
+                                    <input class="btn btn-primary btn-lg" type="submit" value="Book">
                                 </form><!-- end form-->
                             </div>
                             <div class="col-md-6 offset-md-2 bg-success pb-3">
@@ -90,11 +99,25 @@
 
                                 <ul class="list-group">
                                     <li class="list-group-item">
-                                        <h4 class="list-group-item-heading">11/24/2016-12/20/2016<span class="tag tag-danger tag-pill float-xs-right">cancel</span></h4>
+                                        <h4 class="list-group-item-heading">
+                                            11/24/2016-12/20/2016
+                                            <span class="tag tag-pill float-xs-right">
+                                                <a href="#">
+                                                    <img class="icon" src="img/cancel.png" alt="icon">
+                                                </a>
+                                            </span>
+                                        </h4>
                                         U1-048
                                     </li>
                                     <li class="list-group-item">
-                                        <h4 class="list-group-item-heading">11/24/2016-12/20/2016<span class="tag tag-danger tag-pill float-xs-right">cancel</span></h4>
+                                        <h4 class="list-group-item-heading">
+                                            11/24/2016-12/20/2016
+                                            <span class="tag tag-pill float-xs-right">
+                                                <a href="#">
+                                                    <img class="icon" src="img/cancel.png" alt="icon">
+                                                </a>
+                                            </span>
+                                        </h4>
                                         U1-052
                                     </li>
                                 </ul>
