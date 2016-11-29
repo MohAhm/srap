@@ -1,0 +1,140 @@
+/**********************************************
+	GENERAL
+/**********************************************/
+
+body {
+    background-color: #FFF;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400 !important;
+    padding-top: 50px
+    color: #333;
+}
+
+h1 {
+    font-size: 2.8rem; /* = 45px */   
+    font-weight: 400 !important; 
+    letter-spacing: 2px;
+}
+
+h2 {
+    font-size: 1.8rem; /* = 29px */
+    font-weight: 400 !important;
+}
+
+h3 {
+    font-size: 1.5rem; /* = 24px */
+    font-weight: 600 !important;
+}
+
+p {
+    font-size: 1rem; /* = 16px */
+    line-height: 24px;
+}
+
+a {
+    font-size: 1rem;
+    letter-spacing: 2px;
+    line-height: 22px;
+    text-decoration: none;
+    color: #009999;
+}
+
+a:hover, a:focus {
+    color: #009999;
+    text-decoration: underline;
+}
+
+.btn {
+	text-transform: uppercase;
+	border-radius: 0;
+}
+
+
+/**********************************************
+	Topbar
+/**********************************************/
+#topbar {
+	border-bottom: 1px solid #EE3333;
+	background-color: #FFF;
+	padding: 15px 30px;
+}
+
+.navbar {
+    border-radius: 0;
+}
+
+.name {
+	font-weight: 600;
+}
+
+.btn-outline-warning {
+    color: #D83D00;
+    border-color: #D83D00;
+	margin-top: 10px;
+	margin-bottom: 10px; 
+}
+
+.btn-outline-warning:hover,
+.btn-outline-warning:focus,
+.btn-outline-warning:active {
+	background-color: #D83D00 !important;
+    border-color: #D83D00 !important;
+    outline: none !important;
+}
+
+
+
+/**********************************************
+	Sidebar
+/**********************************************/
+#sidebar {
+    position: fixed;
+    top: 88px;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    display: block;
+	padding: 0;    
+    overflow-x: hidden;
+    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+    background-color: #F5EFE6;
+    border-right: 1px solid #EE3333;
+}
+
+.nav-sidebar li {
+    padding: 20px 30px;
+    border-bottom: 1px solid #EE3333;
+}
+
+.nav-sidebar a {
+    margin: 0;
+    padding-left: 40px;
+    display: block;
+    min-height: 24px;
+    background-repeat: no-repeat;
+    color: #333333;
+}
+
+#add a {
+    background-image: url('../img/add.png');
+}
+
+#view a {
+    background-image: url('../img/view.png');
+}
+
+
+
+/**********************************************
+	Main Content
+/**********************************************/
+#main {
+	top: 90px;
+    padding: 20px 30px;
+}
+
+#main .bg-success {
+    background-color: #F9F4E8 !important;
+}
+
+

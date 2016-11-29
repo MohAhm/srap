@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Room Allocation Planner</title>
+
+        <!-- Required meta tags always come first -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        
+        <!-- Google Font -->
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi" crossorigin="anonymous">
+
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+    <body>        
+        <!-- topbar -->
+        <nav id="topbar" class="navbar navbar-fixed-top">
+            <a class="navbar-brand" href="#"><img class="img-fluid" src="img/mdh_logo.png" alt=""></a>
+
+            <div id="navbar">
+                <div class="float-xs-right">
+                    <p class="d-inline mr-3">Welcome: <span class="name">User Name</span></p> 
+                    <button type="submit" class="btn btn-outline-warning">Logout</button>
+                </div>
+            </div>
+        </nav>
+        <!-- end topbar -->
+        
+        <!-- content--> 
+        <div class="container-fluid">
+            <div class="row">
+                <!-- sidebar--> 
+                <div id="sidebar" class="col-md-3">
+                    <ul class="nav nav-sidebar">
+                        <li id="add"><a href="index.html">Add Booking</a></li>
+                        <li id="view" class="active"><a href="rooms.html">Available Rooms</a></li>
+                    </ul>
+                </div>
+                <!-- end sidebar--> 
+                
+                <!-- main -->
+                <div id="main" class="col-md-9 offset-md-3">
+                    <h1 class="mb-3">Available Rooms</h1>
+                    
+                    <div class="container">
+                        <div class="row">
+                            <ul class="nav nav-tabs">
+                                <li class="nav-item">
+                                    <a class="nav-link active" href="#textual" data-toggle="tab" role="tab">Textual</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#graphic" data-toggle="tab" role="tab">Graphic</a>
+                                </li>
+                            </ul>
+
+                            <!-- tab content -->
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="textual" role="tabpanel"> 
+                                    <table class="table table-striped">
+                                        <thead>
+                                        <tr>
+                                          <th>Room Number</th>
+                                          <th>Seats Available</th>
+                                          <th>State</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                        <tr>
+                                          <th scope="row">U1-048</th>
+                                          <td>3</td>
+                                          <td>Free</td>
+                                        </tr>
+                                        <tr>
+                                          <th scope="row">U1-052</th>
+                                          <td>1</td>
+                                          <td>Free</td>
+                                        </tr>
+                                        <tr>
+                                          <th scope="row">U1-057</th>
+                                          <td>5</td>
+                                          <td>2 left</td>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                </div><!-- end tab textual-->
+                                <div class="tab-pane" id="graphic" role="tabpanel">
+                                    Map...
+                                </div>
+                            </div>
+                        </div> <!-- end row-->
+                    </div> <!-- end container-->
+                </div><!-- end main -->
+            </div>
+        </div>
+        <!-- end content--> 
+
+        <!-- jQuery first, then Tether, then Bootstrap JS. -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" integrity="sha384-3ceskX3iaEnIogmQchP8opvBy3Mi7Ce34nWjpBIwVTHfGYWQS9jwHDVRnpKKHJg7" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.7/js/tether.min.js" integrity="sha384-XTs3FgkjiBgo8qjEjBk0tGmf3wPrWtA6coPfQDfFEY8AnYJwjalXCiosYRBIBZX8" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js" integrity="sha384-BLiI7JTZm+JWlgKa0M0kGRpJbF2J8q+qreVrKBC47e3K6BW78kGLrCkeRX6I9RoK" crossorigin="anonymous"></script>
+    </body>
+</html>
