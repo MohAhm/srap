@@ -106,7 +106,7 @@ a:hover, a:focus {
 }
 
 .nav-item a {
-    color: #333333;
+    color: #333;
     border-bottom: 1px solid #EE3333;
 }
 
@@ -144,6 +144,12 @@ a:hover, a:focus {
     background-color: #F9F4E8 !important;
 }
 
+#main h3  {
+    font-weight: 400 !important;
+}
+
+
+/**  Form **/
 .form-control {
     border: 1px solid #808080;
     border-radius: 0;
@@ -154,14 +160,68 @@ a:hover, a:focus {
 }
 
 .btn-primary {
-    background-color: #EE5500 ;
+    background-color: #D83D00;
     border: 0;
 }
 
 .btn-primary:hover,
 .btn-primary:focus {
-    background-color: #D83D00;
+    background-color: #EE5500;
 }
+
+.list-group-item {
+    border: 1px solid #808080;
+    border-radius: 0 !important;
+}
+
+
+/* Tab */
+.nav-tabs {
+    border-bottom: 2px solid #EE3333;    
+}
+
+.nav-tabs .nav-link {
+    border-radius: 0;
+    border-color: #D83D00;
+    color: #D83D00;
+}
+
+.nav-tabs .nav-link:hover,
+.nav-tabs .nav-link:focus {
+    background-color: #D83D00;
+    border-color: #D83D00;
+    color: #FFF;
+}
+
+.nav-tabs .nav-link.active,
+.nav-tabs .nav-link.active:hover,
+.nav-tabs .nav-link.active:focus {
+    background-color: #D83D00;
+    color: #FFF;
+    border-color: #D83D00;
+}
+
+
+/* Table */
+.table thead th {
+    border-top: 0;
+    border-bottom: 1px solid #808080;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #F9F4E8;
+}
+
+.table td, 
+.table th {
+    border-top: 0;
+}
+
+
+
+
+
+
 
 
 
