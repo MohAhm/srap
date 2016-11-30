@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
     <head>
         <title>Room Allocation Planner</title>
@@ -15,6 +16,7 @@
 
         <!-- Custom CSS -->
         <link rel="stylesheet" href="css/style.css">
+
     </head>
     <body>        
         <!-- topbar -->
@@ -39,13 +41,13 @@
                 <ul id="sidebar" class="nav nav-pills nav-stacked col-md-3 col-sm-2 col-xs-2">
                     <li class="nav-item">
                         <a class="nav-link" href="index.html">
-                            <img class="icon" src="img/add.png" alt="icon">
+                            <img class="icon" src="img/add.svg" alt="icon">
                             <span class="hidden-sm-down">Add Booking</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="rooms.html">
-                            <img class="icon" src="img/view.png" alt="icon">
+                            <img class="icon" src="img/view.svg" alt="icon">
                             <span class="hidden-sm-down">Rooms</span>
                         </a>
                     </li>
@@ -63,15 +65,15 @@
                                 <form>
                                     <fieldset class="form-group mb-2">
                                         <label for="from">Date From:</label>
-                                        <input type="text" class="form-control" id="from" placeholder="mm/dd/yyyy">
+                                        <input type="text" class="form-control" id="from" placeholder="yy-mm-dd" autocomplete="off">
                                     </fieldset>
                                     <fieldset class="form-group mb-2">
                                         <label for="to">Date To:</label>
-                                        <input type="text" class="form-control" id="to" placeholder="mm/dd/yyyy">
+                                        <input type="text" class="form-control" id="to" placeholder="yy-mm-dd" autocomplete="off">
                                     </fieldset>
                                     <fieldset class="form-group mb-2">
                                         <label for="seats">Seats:</label>
-                                        <select class="form-control" id="seats" name="seats_num">
+                                        <select class="custom-select form-control" id="seats" name="seats_num">
                                             <option value="1">1</option>
                                             <option value="2">2</option>
                                             <option value="3">3</option>
@@ -81,7 +83,7 @@
                                     </fieldset>
                                     <fieldset class="form-group mb-2">
                                         <label for="room">Room Name:</label>
-                                        <select class="form-control" id="room" name="room_name">
+                                        <select class="custom-select form-control" id="room" name="room_name">
                                             <option value="U1-048">U1-048</option>
                                             <option value="U1-052">U1-048</option>
                                             <option value="U1-057">U1-057</option>
@@ -96,29 +98,28 @@
                             </div>
                             <div class="col-md-6 offset-md-2 bg-success pb-3">
                                 <h3 class="my-2">My Bookings:</h3>
-
                                 <ul class="list-group">
-                                    <li class="list-group-item">
+                                    <li class="list-group-item" id="listItem01">
                                         <h4 class="list-group-item-heading">
-                                            11/24/2016-12/20/2016
+                                            11/24/2016 - 12/20/2016
                                             <span class="tag tag-pill float-xs-right">
                                                 <a href="#">
-                                                    <img class="icon" src="img/cancel.png" alt="icon">
-                                                </a>
+                                                    <img class="icon" id="listItem01img" src="img/cancel.svg" alt="icon">
+                                                </a> 
                                             </span>
                                         </h4>
-                                        U1-048
+                                        U1-048, 1 Seat
                                     </li>
-                                    <li class="list-group-item">
+                                    <li class="list-group-item" id="listItem02">
                                         <h4 class="list-group-item-heading">
-                                            11/24/2016-12/20/2016
+                                            11/24/2016 - 12/20/2016
                                             <span class="tag tag-pill float-xs-right">
                                                 <a href="#">
-                                                    <img class="icon" src="img/cancel.png" alt="icon">
+                                                    <img class="icon" id="listItem02img" src="img/cancel.svg" alt="icon">
                                                 </a>
                                             </span>
                                         </h4>
-                                        U1-052
+                                        U1-052, 3 Seat
                                     </li>
                                 </ul>
                             </div>
@@ -128,6 +129,8 @@
             </div>
         </div>
         <!-- end content--> 
+		
+
         
         <!-- jQuery first, then Tether, then Bootstrap JS. -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" integrity="sha384-3ceskX3iaEnIogmQchP8opvBy3Mi7Ce34nWjpBIwVTHfGYWQS9jwHDVRnpKKHJg7" crossorigin="anonymous"></script>
