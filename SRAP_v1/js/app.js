@@ -1,4 +1,8 @@
-$(function() {
-    $("#from").datepicker();
-    $("#to").datepicker();
+
+$("#from").datepicker({
+	dateFormat: "yy-mm-dd"
+});
+
+$("#to").datepicker({
+	dateFormat: "yy-mm-dd"
 });
