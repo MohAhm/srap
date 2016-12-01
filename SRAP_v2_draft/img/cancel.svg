@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 41.1 (35376) - http://www.bohemiancoding.com/sketch -->
+    <title>cancle</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="RAP" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Desktop" transform="translate(-950.000000, -298.000000)" fill="#9D102D">
+            <g id="Main" transform="translate(329.000000, 118.000000)">
+                <g id="side" transform="translate(365.000000, 89.000000)">
+                    <g id="book1" transform="translate(10.000000, 73.000000)">
+                        <g id="cancle" transform="translate(246.000000, 18.000000)">
+                            <g id="Group">
+                                <path d="M12,0 C5.37253333,0 0,5.37253333 0,12 C0,18.6274667 5.37253333,24 12,24 C18.6274667,24 24,18.6274667 24,12 C24,5.37253333 18.6274667,0 12,0 Z M19.3234667,16.8826667 L16.8826667,19.3234667 L12,14.4410667 L7.1176,19.3234667 L4.67626667,16.8826667 L9.55866667,12 L4.67653333,7.1176 L7.11786667,4.67626667 L12,9.55866667 L16.8826667,4.67626667 L19.3234667,7.1176 L14.4410667,12 L19.3234667,16.8826667 Z" id="Shape"></path>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
