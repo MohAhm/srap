@@ -189,6 +189,13 @@ a,
     background-image: url(../img/select_date.svg);
 }
 
+.form-signin {
+    max-width: 380px;
+    margin: 0 auto;
+    padding: 10px 20px;
+}
+
+
 /** Tab **/
 .nav-tabs {
     border-bottom: 1px solid #808080;    
@@ -308,13 +315,6 @@ a,
 .ui-datepicker td a:hover,
 .ui-datepicker td a:focus {
     background-color: #EE5500;
-}
-
-
-.form-signin {
-    max-width: 380px;
-    margin: 0 auto;
-    padding: 10px 20px;
 }
 
 
