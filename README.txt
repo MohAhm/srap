@@ -5,7 +5,7 @@ How to run with MAMP:
 Importing the database:
 1. Click "Open start page".
 2. Click phpMyAdmin.
-3. Add a new database by pressing New. Use default settings.
+3. Add a new database by pressing New. Name it "reserve". Use default settings.
 4. Go into the new database and press the "Import" tab.
 5. Import the reserve.sql file and press Go.
 
