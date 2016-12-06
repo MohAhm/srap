@@ -1,5 +1,13 @@
-<!DOCTYPE html>
+<?php
+    session_start();
+    include 'connect_mysql.php';
+    if ($_SESSION['username']=="" ) {
+        header("Location: login.php");
+        exit;
+    }
+?>
 
+<!DOCTYPE html>
 <html lang="en">
     <head>
         <title>Room Allocation Planner</title>
@@ -17,14 +25,6 @@
 
         <!-- Custom CSS -->
         <link rel="stylesheet" href="css/style.css">
-<?php
-		session_start();
-		include 'connect_mysql.php';
-		if ($_SESSION['username']=="" ) {
-		header("Location: login.php");
-		exit;
- }
-		?>
     </head>
     <body>        
         <!-- topbar -->
@@ -34,13 +34,8 @@
 
                 <div id="navbar">
                     <div class="float-xs-right">
-<<<<<<< HEAD:SRAP_v2_draft/index.php
                         <p class="d-inline mr-3 hidden-sm-down"><span class="name"><?php echo $_SESSION["username"]; ?></span></p> 
                         <a href="logout.php" class="btn btn-outline-warning">Logout</a>
-=======
-                        <p class="d-inline mr-3 hidden-sm-down">Welcome: <span class="name"><?php echo $_SESSION["username"]; ?></span></p> 
-                        <button type="submit" class="btn btn-outline-warning"><a href="logout.php">Logout</a></button>
->>>>>>> master:SRAP_v2/index.php
                     </div>
                 </div>
             </div>
@@ -73,16 +68,16 @@
                     
                     <div class="container-fluid">
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-4"> 
                                 <!-- form-->
                                 <form action="booking.php" method="post">
-                                    <fieldset class="form-group mb-2">
+                                    <fieldset class="form-group mb-2 has-warning">
                                         <label for="from">Date From:</label>
-                                        <input type="text" class="form-control" id="from" placeholder="yy-mm-dd" autocomplete="off"  name="from">
+                                        <input type="text" class="form-control form-control-warning" id="from" placeholder="yy-mm-dd" autocomplete="off"  name="from">
                                     </fieldset>
-                                    <fieldset class="form-group mb-2">
+                                    <fieldset class="form-group mb-2 has-warning">
                                         <label for="to">Date To:</label>
-                                        <input type="text" class="form-control" id="to" placeholder="yy-mm-dd" autocomplete="off"  name="to">
+                                        <input type="text" class="form-control form-control-warning" id="to" placeholder="yy-mm-dd" autocomplete="off"  name="to">
                                     </fieldset>
                                     <fieldset class="form-group mb-2">
                                         <label for="seats">Seats:</label>
@@ -117,7 +112,6 @@
                                 <h3 class="my-2">My Bookings:</h3>
 								<ul id="myBooking" class="list-group">
 								<?php
-<<<<<<< HEAD:SRAP_v2_draft/index.php
 								    $select_path = "SELECT * from reservation";
 									$result = mysqli_query($conn, $select_path);
 
@@ -133,23 +127,6 @@
 												    </h4>
 												    ' . $row['room_name'] . ', ' . $row['seats'] . ' Seat
 											    </li>';
-=======
-								$select_path = "SELECT *
-												from reservation";
-												$result = mysqli_query($conn, $select_path);
-											while($row = $result->fetch_assoc()){
-												echo '<li class="list-group-item">
-														<h4 class="list-group-item-heading">
-														' . $row['date_from'] . ' - ' . $row['date_to'] . '
-														<span class="tag tag-pill float-xs-right">
-														<a href="#">
-                                                    <img class="icon" id="listItem01img" src="img/cancel.svg" alt="icon">
-													</a> 
-													</span>
-													</h4>
-													' . $row['room_name'] . ', ' . $row['seats'] . ' Seat
-													</li>';
->>>>>>> master:SRAP_v2/index.php
 											}
 								?>
                                 </ul>
