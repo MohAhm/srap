@@ -1,10 +1,5 @@
-<?php
-    session_start();
-    include 'connect_mysql.php';
-?>
-
 <!DOCTYPE html>
-<html lang="en"> 
+<html lang="en">
     <head>
         <title>Room Allocation Planner</title>
 
@@ -20,6 +15,10 @@
 
         <!-- Custom CSS -->
         <link rel="stylesheet" href="css/style.css">
+		<?php
+			session_start();
+			include 'connect_mysql.php';
+		?>
     </head>
     <body>        
         <!-- topbar -->
@@ -30,7 +29,7 @@
                 <div id="navbar">
                     <div class="float-xs-right">
                         <p class="d-inline mr-3 hidden-sm-down">Welcome: <span class="name"><?php echo $_SESSION["username"]; ?></span></p> 
-                        <a href="logout.php" class="btn btn-outline-warning">Logout</a>
+                        <button type="submit" class="btn btn-outline-warning"><a href="logout.php">Logout</a></button>
                     </div>
                 </div>
             </div>
@@ -60,26 +59,26 @@
                 <!-- main -->
                 <div id="main" class="col-md-9 offset-md-3 col-sm-10 offset-sm-2 offset-xs-1">
                     <h1 class="mb-3">Available Rooms</h1>
-                    <form method="post" class="mb-3">
-                        <fieldset class="form-group">
-                            <label for="from">Date From:</label>
-                            <input type="text" class="form-control" id="from" placeholder="yyyy/mm/dd" name="f">
-                        </fieldset>
-                        <fieldset class="form-group">
-                            <label for="to">Date To:</label>
-                            <input type="text" class="form-control" id="to" placeholder="yyyy/mm/dd" name="t">
-                        </fieldset>
-						<fieldset class="form-group">
-                            <label for="seats">Seats:</label>
-                            <select class="form-control custom-select" id="seats" name="s">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                            </select>
-						</fieldset>
-                        <button type="submit" class="btn btn-primary" name="searchform">Search</button>
+                    <form method="post">
+                                    <fieldset class="form-group">
+                                        <label for="from">Date From:</label>
+                                        <input type="text" class="form-control" id="from" placeholder="yyyy/mm/dd" name="f">
+                                    </fieldset>
+                                    <fieldset class="form-group">
+                                        <label for="to">Date To:</label>
+                                        <input type="text" class="form-control" id="to" placeholder="yyyy/mm/dd" name="t">
+                                    </fieldset>
+									<fieldset class="form-group">
+                                        <label for="seats">Seats:</label>
+                                        <select class="form-control" id="seats" name="s">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                        </select>
+										<button type="submit" class="btn btn-primary" name="searchform">Search</button>
+                                    </fieldset>
 					</form>
                     <div class="container-fluid">
                         <div class="row">
@@ -104,7 +103,8 @@
                                         </thead>
                                         <tbody>
 										<?php
-									  											
+									  /*
+											echo '<h1>Free rooms</h1>';
 											$select_path = "select DISTINCT r.name, r.seats 
 											from room r, reservation re
 											where r.name != re.room_name";
@@ -116,32 +116,45 @@
 													
 													</tr>';
 											}
-											
-                                            /*
+											*/
 											if(isset($_POST['searchform'])){
 												$s = $_POST['s'];
 												$f = $_POST['f'];
 												$t = $_POST['t'];
 												if($t != '' and $f != ''){
-												$select_path = "SELECT r.name as name, r.seats as seats
+												$select_path = "SELECT r.name as name, r.seats-(select sum(re3.seats)
+																from reservation re3
+																where ((('" . $f ."'<date_to) and ('" . $f ."'>=date_from)) 
+																OR (('" . $t ."'>=date_from) AND ('" . $t ."'<=date_to)))
+																and re3.room_name=r.name) as seats
 																from room r
 																WHERE r.name not IN (
 																select DISTINCT re1.room_name
 																from reservation re1
-																where (('" . $f . "'<date_to) and ('" . $f . "'>=date_from)) 
-																OR (('" . $t . "'>=date_from) AND ('" . $t . "'<=date_to)))";
+																where ((('" . $f ."'<date_to) and ('" . $f ."'>=date_from)) 
+																OR (('" . $t ."'>=date_from) AND ('" . $t ."'<=date_to))))
+																or r.seats-1>=(
+																select sum(re2.seats)
+																from reservation re2
+																where ((('" . $f ."'<date_to) and ('" . $f ."'>=date_from)) 
+																OR (('" . $t ."'>=date_from) AND ('" . $t ."'<=date_to)))
+																and re2.room_name=r.name)";
 												$result = mysqli_query($conn, $select_path);
 											while($row = $result->fetch_assoc()){
+												if($row['seats']!=NULL){
 												echo '<tr>
 													<th scope="row">' . $row['name'] . '</th>
 													<td>' . $row['seats'] . '</td>
-													
-													</tr>';
+												</tr>';
+												}else{
+													echo '<tr>
+													<th scope="row">' . $row['name'] . '</th>
+													<td>FREE</td>
+												</tr>';
+												}	
 											}
 											}
-											}	
-                                            */
-                                        										
+											}											
 										?>
                                             <!--<tr>
                                                 <th scope="row">U1-048</th>
