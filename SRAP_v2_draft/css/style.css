@@ -79,6 +79,9 @@ a,
 
 .name {
     font-weight: 600;
+    padding: 0 0 0 30px;
+    background-repeat: no-repeat;
+    background-image: url(../img/user.svg);
 }
 
 .btn-outline-warning {
