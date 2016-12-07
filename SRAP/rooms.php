@@ -175,7 +175,7 @@
                                     </table>
                                 </div><!-- end tab textual-->
                                 <div class="tab-pane" id="graphic" role="tabpanel">
-                                    Map...
+									<img class="img-fluid" src="img/temporaryMap.png" alt="Could not fetch Map"/>
                                 </div>
                             </div>
                         </div> <!-- end row-->
