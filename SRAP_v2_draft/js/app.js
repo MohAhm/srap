@@ -12,7 +12,7 @@ $dateInputFrom.datepicker({
 });
 
 $dateInputTo.datepicker({
-	dateFormat: "yy-mm-dd",
+	dateFormat: "yy-mm-dd", 
 	minDate: 2
 });
 
@@ -55,6 +55,8 @@ $addButton.click(function()
 
 	$booking.append($listItem);
 
+	// ## add values to the db ##
+
 	// reset values
 	$dateInputFrom.val("");
 	$dateInputTo.val("");
@@ -67,5 +69,7 @@ $booking.on("click", "a", function()
 	console.log("Cancel");
 
 	$(this).parentsUntil(".list-group").remove();
+
+	// ## delete item from db ##
 });
 

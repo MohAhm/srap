@@ -24,7 +24,7 @@
         <!-- topbar -->
         <nav id="topbar" class="navbar navbar-fixed-top py-1">
             <div class="container-fluid">
-                <a class="navbar-brand" href="index.php"><img class="img-fluid" src="img/mdh_logo.png" alt="logo"></a>
+                <a class="navbar-brand" href="http://www.mdh.se/" target="_blank"><img class="img-fluid" src="img/RGB_logo_wide.png" alt="logo"></a>
 
                 <div id="navbar">
                     <div class="float-xs-right">

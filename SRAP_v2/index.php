@@ -30,12 +30,17 @@
         <!-- topbar -->
         <nav id="topbar" class="navbar navbar-fixed-top py-1">
             <div class="container-fluid">
-                <a class="navbar-brand" href="index.php"><img class="img-fluid" src="img/mdh_logo.png" alt="logo"></a>
+                <a class="navbar-brand" href="http://www.mdh.se/" target="_blank"><img class="img-fluid" src="img/RGB_logo_wide.png" alt="logo"></a>
 
                 <div id="navbar">
                     <div class="float-xs-right">
+<<<<<<< HEAD:SRAP_v2/index.php
                         <p class="d-inline mr-3 hidden-sm-down">Welcome: <span class="name"><?php echo $_SESSION["username"]; ?></span></p> 
                         <button type="submit" class="btn btn-outline-warning"><a href="logout.php">Logout</a></button>
+=======
+                        <p class="d-inline mr-3 hidden-sm-down"><span class="name"><?php echo $_SESSION["username"]; ?></span></p> 
+                        <a href="logout.php" class="btn btn-outline-warning">Logout</a>
+>>>>>>> refs/remotes/origin/mockup-v3:SRAP_v2_draft/index.php
                     </div>
                 </div>
             </div>
@@ -82,40 +87,37 @@
                                     <fieldset class="form-group mb-2">
                                         <label for="seats">Seats:</label>
                                         <select class="custom-select form-control" id="seats" name="seats_num">
+                                            <option value="0" selected="selected">0</option>
                                             <option value="1">1</option>
                                             <option value="2">2</option>
                                             <option value="3">3</option>
                                             <option value="4">4</option>
-                                            <option value="5">5</option>
                                         </select> 
                                     </fieldset>
                                     <fieldset class="form-group mb-2">
                                         <label for="room">Room Name:</label>
                                         <select class="custom-select form-control" id="room" name="room_name">
-										<?php
-												$select_path = "select name
-																from room";
+										    <?php
+											    $select_path = "select name from room";
 												$result = mysqli_query($conn, $select_path);
-											while($row = $result->fetch_assoc()){
-												echo '<option>' . $row['name'] . '</option>';
-											}
+											    while($row = $result->fetch_assoc()){
+												    echo '<option>' . $row['name'] . '</option>';
+											    }
 											?>
-                                            <!--<option value="U1-048">U1-048</option>
-                                            <option value="U1-052">U1-048</option>
-                                            <option value="U1-057">U1-057</option>-->
                                         </select> 
                                     </fieldset>
                                     <fieldset class="form-group mb-2">
                                         <label for="name">Name:</label>
                                         <input type="text" class="form-control" id="name" placeholder="<?php echo $_SESSION["username"]; ?>" disabled>
                                     </fieldset>                                   
-                                    <button class="btn btn-primary btn-lg" type="submit">Book</button>
+                                    <input id="book" class="btn btn-primary btn-lg" type="button" value="Book">
                                 </form><!-- end form-->
                             </div>
                             <div class="col-md-6 offset-md-2 bg-success pb-3">
                                 <h3 class="my-2">My Bookings:</h3>
-								<ul class="list-group">
+								<ul id="myBooking" class="list-group">
 								<?php
+<<<<<<< HEAD:SRAP_v2/index.php
 								$select_path = "SELECT *
 												from reservation";
 												$result = mysqli_query($conn, $select_path);
@@ -131,31 +133,25 @@
 													</h4>
 													' . $row['room_name'] . ', ' . $row['seats'] . ' Seat
 													</li>';
+=======
+								    $select_path = "SELECT * from reservation";
+									$result = mysqli_query($conn, $select_path);
+
+									while($row = $result->fetch_assoc()){
+										echo    '<li class="list-group-item">
+											         <h4 class="list-group-item-heading">
+													  ' . $row['date_from'] . ' - ' . $row['date_to'] . '
+													   <span class="tag tag-pill float-xs-right">
+												            <a href="#">
+                                                                <img class="icon" src="img/cancel.svg" alt="icon">
+													        </a> 
+													   </span>
+												    </h4>
+												    ' . $row['room_name'] . ', ' . $row['seats'] . ' Seat
+											    </li>';
+>>>>>>> refs/remotes/origin/mockup-v3:SRAP_v2_draft/index.php
 											}
 								?>
-                                <!--
-                                    <li class="list-group-item" id="listItem01">
-                                        <h4 class="list-group-item-heading">
-                                            11/24/2016 - 12/20/2016
-                                            <span class="tag tag-pill float-xs-right">
-                                                <a href="#">
-                                                    <img class="icon" id="listItem01img" src="img/cancel.svg" alt="icon">
-                                                </a> 
-                                            </span>
-                                        </h4>
-                                        U1-048, 1 Seat
-                                    </li>
-                                    <li class="list-group-item" id="listItem02">
-                                        <h4 class="list-group-item-heading">
-                                            11/24/2016 - 12/20/2016
-                                            <span class="tag tag-pill float-xs-right">
-                                                <a href="#">
-                                                    <img class="icon" id="listItem02img" src="img/cancel.svg" alt="icon">
-                                                </a>
-                                            </span>
-                                        </h4>
-                                        U1-052, 3 Seat
-                                    </li>-->
                                 </ul>
                             </div>
                         </div> <!-- end row-->
