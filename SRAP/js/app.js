@@ -6,18 +6,51 @@ var $roomSelect    = $("#room");
 var $addButton     = $("#book");
 var $booking       = $("#myBooking");
 
+// NYI: form handler response to dynamically update available rooms
+
+function getClosestDate(current, offset)
+{
+	var newDate = new Date();
+	newDate.setDate(current.getDate() + offset);
+	return newDate;
+};
+
 $dateInputFrom.datepicker({
 	dateFormat: "yy-mm-dd",
-	minDate: 0
+	minDate: 0,
+	onSelect: function(dateText, inst) {
+
+		var fromDate = new Date(dateText);
+		var toDate = $dateInputTo.datepicker('getDate');
+
+		// Assert start date is prior to end date
+		if ( !(toDate) || (fromDate <= toDate) ) {
+			// Call to form handler.
+		} else {
+			$(this).datepicker('setDate', getClosestDate(toDate, -1));
+		}
+	}
 });
 
 $dateInputTo.datepicker({
-	dateFormat: "yy-mm-dd",
-	minDate: 2
+	dateFormat: "yy-mm-dd", 
+	minDate: 2,
+	onSelect: function(dateText, inst) {
+
+		var toDate = new Date(dateText);
+		var fromDate = $dateInputFrom.datepicker('getDate');
+
+		// Assert start date is prior to end date
+		if ( !(fromDate) || (fromDate <= toDate) ) {
+			// Call to form handler.
+		} else {
+			$(this).datepicker('setDate', getClosestDate(fromDate, 1));
+		}
+	}
 });
 
 
-var createNewBookElement = function(dateFrom, dateTo, seats, room)
+function createNewBookElement(dateFrom, dateTo, seats, room)
 {
 	var $listItem = $("<li></li>");
 	var $date = $("<h4></h4>");
@@ -55,6 +88,8 @@ $addButton.click(function()
 
 	$booking.append($listItem);
 
+	// ## add values to the db ##
+
 	// reset values
 	$dateInputFrom.val("");
 	$dateInputTo.val("");
@@ -67,5 +102,7 @@ $booking.on("click", "a", function()
 	console.log("Cancel");
 
 	$(this).parentsUntil(".list-group").remove();
+
+	// ## delete item from db ##
 });
 

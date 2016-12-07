@@ -34,13 +34,10 @@
 
                 <div id="navbar">
                     <div class="float-xs-right">
-<<<<<<< HEAD:SRAP_v2/index.php
                         <p class="d-inline mr-3 hidden-sm-down">Welcome: <span class="name"><?php echo $_SESSION["username"]; ?></span></p> 
                         <button type="submit" class="btn btn-outline-warning"><a href="logout.php">Logout</a></button>
-=======
                         <p class="d-inline mr-3 hidden-sm-down"><span class="name"><?php echo $_SESSION["username"]; ?></span></p> 
                         <a href="logout.php" class="btn btn-outline-warning">Logout</a>
->>>>>>> refs/remotes/origin/mockup-v3:SRAP_v2_draft/index.php
                     </div>
                 </div>
             </div>
@@ -117,7 +114,6 @@
                                 <h3 class="my-2">My Bookings:</h3>
 								<ul id="myBooking" class="list-group">
 								<?php
-<<<<<<< HEAD:SRAP_v2/index.php
 								$select_path = "SELECT *
 												from reservation";
 												$result = mysqli_query($conn, $select_path);
@@ -133,7 +129,7 @@
 													</h4>
 													' . $row['room_name'] . ', ' . $row['seats'] . ' Seat
 													</li>';
-=======
+                                                }
 								    $select_path = "SELECT * from reservation";
 									$result = mysqli_query($conn, $select_path);
 
@@ -149,7 +145,6 @@
 												    </h4>
 												    ' . $row['room_name'] . ', ' . $row['seats'] . ' Seat
 											    </li>';
->>>>>>> refs/remotes/origin/mockup-v3:SRAP_v2_draft/index.php
 											}
 								?>
                                 </ul>
