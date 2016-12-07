@@ -172,6 +172,12 @@ a,
     font-weight: 600;
 }
 
+.form-signin {
+    max-width: 380px;
+    margin: 0 auto;
+    padding: 10px 20px;
+}
+
 .btn-primary {
     background-color: #D83D00;
     border: 0;

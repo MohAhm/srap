@@ -34,8 +34,6 @@
 
                 <div id="navbar">
                     <div class="float-xs-right">
-                        <p class="d-inline mr-3 hidden-sm-down">Welcome: <span class="name"><?php echo $_SESSION["username"]; ?></span></p> 
-                        <button type="submit" class="btn btn-outline-warning"><a href="logout.php">Logout</a></button>
                         <p class="d-inline mr-3 hidden-sm-down"><span class="name"><?php echo $_SESSION["username"]; ?></span></p> 
                         <a href="logout.php" class="btn btn-outline-warning">Logout</a>
                     </div>
@@ -114,22 +112,6 @@
                                 <h3 class="my-2">My Bookings:</h3>
 								<ul id="myBooking" class="list-group">
 								<?php
-								$select_path = "SELECT *
-												from reservation";
-												$result = mysqli_query($conn, $select_path);
-											while($row = $result->fetch_assoc()){
-												echo '<li class="list-group-item">
-														<h4 class="list-group-item-heading">
-														' . $row['date_from'] . ' - ' . $row['date_to'] . '
-														<span class="tag tag-pill float-xs-right">
-														<a href="#">
-                                                    <img class="icon" id="listItem01img" src="img/cancel.svg" alt="icon">
-													</a> 
-													</span>
-													</h4>
-													' . $row['room_name'] . ', ' . $row['seats'] . ' Seat
-													</li>';
-                                                }
 								    $select_path = "SELECT * from reservation";
 									$result = mysqli_query($conn, $select_path);
 
