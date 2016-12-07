@@ -1,4 +1,4 @@
-How to run with MAMP:
+How to run with MAMP: 
 1. Install and run MAMP (free version is enough). https://www.mamp.info/en/downloads/
 2. Start servers (both Apache and MySQL).
 
