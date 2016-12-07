@@ -25,7 +25,7 @@
     <body>
         <div class="container">
             <form action="verify.php" method="post" class="form-signin mt-3">
-                <img class="img-fluid mb-1" src="img/mdh_logo.png" alt="logo">
+                <img class="img-fluid mb-1" src="img/mdh-logo.png" alt="logo">
                 <p class="lead mb-3">Login to room allocation planner</p>
 
                 <p>Enter your username and password to login.</p>

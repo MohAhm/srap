@@ -1,5 +1,13 @@
-<!DOCTYPE html>
+<?php
+    session_start();
+    include 'connect_mysql.php';
+    if ($_SESSION['username']=="" ) {
+        header("Location: login.php");
+        exit;
+    }
+?>
 
+<!DOCTYPE html>
 <html lang="en">
     <head>
         <title>Room Allocation Planner</title>
@@ -17,26 +25,18 @@
 
         <!-- Custom CSS -->
         <link rel="stylesheet" href="css/style.css">
-<?php
-		session_start();
-		include 'connect_mysql.php';
-		if ($_SESSION['username']=="" ) {
-		header("Location: login.php");
-		exit;
- }
-		?>
     </head>
     <body>        
         <!-- topbar -->
         <nav id="topbar" class="navbar navbar-fixed-top py-1">
             <div class="container-fluid">
-                <a class="navbar-brand" href="http://www.mdh.se/" target="_blank"><img class="img-fluid" src="img/RGB_logo_wide.png" alt="logo"></a>
+                <a class="navbar-brand" href="http://www.mdh.se/" target="_blank"><img class="img-fluid" src="img/mdh-logo.png" alt="logo"></a>
 
                 <div id="navbar">
                     <div class="float-xs-right">
                         <p class="d-inline mr-3 hidden-sm-down"><span class="name"><?php echo $_SESSION["username"]; ?></span></p> 
-                        <a href="logout.php" class="btn btn-outline-warning">Logout</a>
-                    </div>
+                        <a href="logout.php" class="btn btn-outline-warning">Logout</a> 
+                    </div> 
                 </div>
             </div>
         </nav>
@@ -71,22 +71,23 @@
                             <div class="col-md-4">
                                 <!-- form-->
                                 <form action="booking.php" method="post">
-                                    <fieldset class="form-group mb-2">
+                                    <fieldset class="form-group mb-2 has-warning">
                                         <label for="from">Date From:</label>
-                                        <input type="text" class="form-control" id="from" placeholder="yy-mm-dd" autocomplete="off"  name="from">
+                                        <input type="text" class="form-control form-control-warning" id="from" placeholder="yy-mm-dd" autocomplete="off"  name="from">
                                     </fieldset>
-                                    <fieldset class="form-group mb-2">
+                                    <fieldset class="form-group mb-2 has-warning">
                                         <label for="to">Date To:</label>
-                                        <input type="text" class="form-control" id="to" placeholder="yy-mm-dd" autocomplete="off"  name="to">
+                                        <input type="text" class="form-control form-control-warning" id="to" placeholder="yy-mm-dd" autocomplete="off"  name="to">
                                     </fieldset>
                                     <fieldset class="form-group mb-2">
                                         <label for="seats">Seats:</label>
                                         <select class="custom-select form-control" id="seats" name="seats_num">
-                                            <option value="0" selected="selected">0</option>
                                             <option value="1">1</option>
                                             <option value="2">2</option>
                                             <option value="3">3</option>
                                             <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
                                         </select> 
                                     </fieldset>
                                     <fieldset class="form-group mb-2">

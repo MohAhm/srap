@@ -93,7 +93,6 @@ $addButton.click(function()
 	// reset values
 	$dateInputFrom.val("");
 	$dateInputTo.val("");
-	$seatsSelect.val(0);
 });
 
 // cancel booking
