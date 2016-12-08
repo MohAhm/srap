@@ -164,14 +164,27 @@ a,
 
 
 /** Form **/
-.form-control,
-.has-warning .form-control {
+.form-control {
     border: 1px solid #808080;
     border-radius: 0;
 }
 
+.has-warning .form-control {
+    border: 1px solid #9D102D;
+    border-radius: 0;
+}
+
+.has-warning .form-control:focus {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
 .form-group label {
     font-weight: 600;
+}
+
+.form-control-feedback {
+    color: #9D102D !important;
 }
 
 .btn-primary {
@@ -190,7 +203,7 @@ a,
 }
  
 .has-warning .form-control-warning {
-    background-image: url(../img/select_date.svg);
+    background-image: url(../img/warn.svg);
 }
 
 .form-signin {

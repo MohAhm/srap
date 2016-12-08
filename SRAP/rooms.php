@@ -61,13 +61,15 @@
                 <div id="main" class="col-md-9 offset-md-3 col-sm-10 offset-sm-2 offset-xs-1">
                     <h1 class="mb-3">Available Rooms</h1>
                     <form method="post" class="mb-3">
-                        <fieldset class="form-group mb-2 has-warning">
+                        <fieldset class="form-group mb-2">
                             <label for="from">Date From:</label>
-                            <input type="text" class="form-control form-control-warning" id="from" placeholder="yy-mm-dd" autocomplete="off"  name="from">
+                            <input type="text" class="form-control form-control-warning" id="start_date" placeholder="yy-mm-dd" autocomplete="off" maxlength="10">
+                            <div class="form-control-feedback">Date must be in the format of YYYY-MM-DD</div>
                         </fieldset>
-                        <fieldset class="form-group mb-2 has-warning">
+                        <fieldset class="form-group mb-2">
                             <label for="to">Date To:</label>
-                            <input type="text" class="form-control form-control-warning" id="to" placeholder="yy-mm-dd" autocomplete="off"  name="to">
+                            <input type="text" class="form-control form-control-warning" id="end_date" placeholder="yy-mm-dd" autocomplete="off" maxlength="10">
+                            <div class="form-control-feedback">Date must be in the format of YYYY-MM-DD</div>
                         </fieldset>
                         <fieldset class="form-group">
                             <label for="seats">Seats:</label>

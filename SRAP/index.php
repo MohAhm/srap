@@ -71,13 +71,15 @@
                             <div class="col-md-4">
                                 <!-- form-->
                                 <form action="booking.php" method="post">
-                                    <fieldset class="form-group mb-2 has-warning">
+                                    <fieldset class="form-group mb-2">
                                         <label for="from">Date From:</label>
-                                        <input type="text" class="form-control form-control-warning" id="from" placeholder="yy-mm-dd" autocomplete="off"  name="from">
+                                        <input type="text" class="form-control form-control-warning" id="start_date" placeholder="yy-mm-dd" autocomplete="off" maxlength="10">
+                                        <div class="form-control-feedback">Date must be in the format of YYYY-MM-DD</div>
                                     </fieldset>
-                                    <fieldset class="form-group mb-2 has-warning">
+                                    <fieldset class="form-group mb-2">
                                         <label for="to">Date To:</label>
-                                        <input type="text" class="form-control form-control-warning" id="to" placeholder="yy-mm-dd" autocomplete="off"  name="to">
+                                        <input type="text" class="form-control form-control-warning" id="end_date" placeholder="yy-mm-dd" autocomplete="off" maxlength="10">
+                                        <div class="form-control-feedback">Date must be in the format of YYYY-MM-DD</div>
                                     </fieldset>
                                     <fieldset class="form-group mb-2">
                                         <label for="seats">Seats:</label>
@@ -106,12 +108,12 @@
                                         <label for="name">Name:</label>
                                         <input type="text" class="form-control" id="name" placeholder="<?php echo $_SESSION["username"]; ?>" disabled>
                                     </fieldset>                                   
-                                    <input id="book" class="btn btn-primary btn-lg" type="button" value="Book">
+                                    <input id="add_book" class="btn btn-primary btn-lg" type="button" value="Book">
                                 </form><!-- end form-->
                             </div>
                             <div class="col-md-6 offset-md-2 bg-success pb-3">
                                 <h3 class="my-2">My Bookings:</h3>
-								<ul id="myBooking" class="list-group">
+								<ul id="booking" class="list-group">
 								<?php
 								    $select_path = "SELECT * from reservation";
 									$result = mysqli_query($conn, $select_path);
