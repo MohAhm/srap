@@ -1,3 +1,8 @@
+<?php
+    session_start();
+    include 'connect_mysql.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -15,21 +20,17 @@
 
         <!-- Custom CSS -->
         <link rel="stylesheet" href="css/style.css">
-		<?php
-			session_start();
-			include 'connect_mysql.php';
-		?>
     </head>
     <body>        
         <!-- topbar -->
         <nav id="topbar" class="navbar navbar-fixed-top py-1">
             <div class="container-fluid">
-                <a class="navbar-brand" href="http://www.mdh.se/" target="_blank"><img class="img-fluid" src="img/RGB_logo_wide.png" alt="logo"></a>
+                <a class="navbar-brand" href="http://www.mdh.se/" target="_blank"><img class="img-fluid" src="img/mdh-logo.png" alt="logo"></a>
 
                 <div id="navbar">
                     <div class="float-xs-right">
-                        <p class="d-inline mr-3 hidden-sm-down">Welcome: <span class="name"><?php echo $_SESSION["username"]; ?></span></p> 
-                        <button type="submit" class="btn btn-outline-warning"><a href="logout.php">Logout</a></button>
+                        <p class="d-inline mr-3 hidden-sm-down"><span class="name"><?php echo $_SESSION["username"]; ?></span></p> 
+                        <a href="logout.php" class="btn btn-outline-warning">Logout</a>
                     </div>
                 </div>
             </div>
@@ -59,27 +60,28 @@
                 <!-- main -->
                 <div id="main" class="col-md-9 offset-md-3 col-sm-10 offset-sm-2 offset-xs-1">
                     <h1 class="mb-3">Available Rooms</h1>
-                    <form method="post">
-                                    <fieldset class="form-group">
-                                        <label for="from">Date From:</label>
-                                        <input type="text" class="form-control" id="from" placeholder="yyyy/mm/dd" name="f">
-                                    </fieldset>
-                                    <fieldset class="form-group">
-                                        <label for="to">Date To:</label>
-                                        <input type="text" class="form-control" id="to" placeholder="yyyy/mm/dd" name="t">
-                                    </fieldset>
-									<fieldset class="form-group">
-                                        <label for="seats">Seats:</label>
-                                        <select class="form-control" id="seats" name="s">
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                            <option value="5">5</option>
-                                        </select>
-										<button type="submit" class="btn btn-primary" name="searchform">Search</button>
-                                    </fieldset>
-					</form>
+                    <form method="post" class="mb-3">
+                        <fieldset class="form-group mb-2 has-warning">
+                            <label for="from">Date From:</label>
+                            <input type="text" class="form-control form-control-warning" id="from" placeholder="yy-mm-dd" autocomplete="off"  name="from">
+                        </fieldset>
+                        <fieldset class="form-group mb-2 has-warning">
+                            <label for="to">Date To:</label>
+                            <input type="text" class="form-control form-control-warning" id="to" placeholder="yy-mm-dd" autocomplete="off"  name="to">
+                        </fieldset>
+                        <fieldset class="form-group">
+                            <label for="seats">Seats:</label>
+                            <select class="form-control custom-select" id="seats" name="s">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                            </select>
+                        </fieldset>
+                        <button type="submit" class="btn btn-primary" name="searchform">Search</button>
+                    </form>
                     <div class="container-fluid">
                         <div class="row">
                             <ul class="nav nav-tabs mb-2">
@@ -102,75 +104,46 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-										<?php
-									  /*
-											echo '<h1>Free rooms</h1>';
-											$select_path = "select DISTINCT r.name, r.seats 
-											from room r, reservation re
-											where r.name != re.room_name";
-											$result = mysqli_query($conn, $select_path);
-											while($row = $result->fetch_assoc()){
-												echo '<tr>
-													<th scope="row">' . $row['name'] . '</th>
-													<td>' . $row['seats'] . '</td>
-													
-													</tr>';
-											}
-											*/
-											if(isset($_POST['searchform'])){
-												$s = $_POST['s'];
-												$f = $_POST['f'];
-												$t = $_POST['t'];
-												if($t != '' and $f != ''){
-												$select_path = "SELECT r.name as name, r.seats-(select sum(re3.seats)
-																from reservation re3
-																where ((('" . $f ."'<date_to) and ('" . $f ."'>=date_from)) 
-																OR (('" . $t ."'>=date_from) AND ('" . $t ."'<=date_to)))
-																and re3.room_name=r.name) as seats
-																from room r
-																WHERE r.name not IN (
-																select DISTINCT re1.room_name
-																from reservation re1
-																where ((('" . $f ."'<date_to) and ('" . $f ."'>=date_from)) 
-																OR (('" . $t ."'>=date_from) AND ('" . $t ."'<=date_to))))
-																or r.seats-1>=(
-																select sum(re2.seats)
-																from reservation re2
-																where ((('" . $f ."'<date_to) and ('" . $f ."'>=date_from)) 
-																OR (('" . $t ."'>=date_from) AND ('" . $t ."'<=date_to)))
-																and re2.room_name=r.name)";
-												$result = mysqli_query($conn, $select_path);
-											while($row = $result->fetch_assoc()){
-												if($row['seats']!=NULL){
-												echo '<tr>
-													<th scope="row">' . $row['name'] . '</th>
-													<td>' . $row['seats'] . '</td>
-												</tr>';
-												}else{
-													echo '<tr>
-													<th scope="row">' . $row['name'] . '</th>
-													<td>FREE</td>
-												</tr>';
-												}	
-											}
-											}
-											}											
-										?>
-                                            <!--<tr>
-                                                <th scope="row">U1-048</th>
-                                                <td>3</td>
-                                                <td>Free</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">U1-052</th>
-                                                <td>1</td>
-                                                <td>Free</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">U1-057</th>
-                                                <td>5</td>
-                                                <td>2 left</td>
-                                            </tr>-->
+                                        <?php
+                                                                                
+                                            $select_path = "select DISTINCT r.name, r.seats 
+                                            from room r, reservation re
+                                            where r.name != re.room_name";
+                                            $result = mysqli_query($conn, $select_path);
+                                            while($row = $result->fetch_assoc()){
+                                                echo '<tr>
+                                                    <th scope="row">' . $row['name'] . '</th>
+                                                    <td>' . $row['seats'] . '</td>
+                                                    
+                                                    </tr>';
+                                            }
+                                            
+                                            /*
+                                            if(isset($_POST['searchform'])){
+                                                $s = $_POST['s'];
+                                                $f = $_POST['f'];
+                                                $t = $_POST['t'];
+                                                if($t != '' and $f != ''){
+                                                $select_path = "SELECT r.name as name, r.seats as seats
+                                                                from room r
+                                                                WHERE r.name not IN (
+                                                                select DISTINCT re1.room_name
+                                                                from reservation re1
+                                                                where (('" . $f . "'<date_to) and ('" . $f . "'>=date_from)) 
+                                                                OR (('" . $t . "'>=date_from) AND ('" . $t . "'<=date_to)))";
+                                                $result = mysqli_query($conn, $select_path);
+                                            while($row = $result->fetch_assoc()){
+                                                echo '<tr>
+                                                    <th scope="row">' . $row['name'] . '</th>
+                                                    <td>' . $row['seats'] . '</td>
+                                                    
+                                                    </tr>';
+                                            }
+                                            }
+                                            }   
+                                            */
+                                                                                
+                                        ?>
                                         </tbody>
                                     </table>
                                 </div><!-- end tab textual-->
@@ -189,5 +162,9 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" integrity="sha384-3ceskX3iaEnIogmQchP8opvBy3Mi7Ce34nWjpBIwVTHfGYWQS9jwHDVRnpKKHJg7" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.7/js/tether.min.js" integrity="sha384-XTs3FgkjiBgo8qjEjBk0tGmf3wPrWtA6coPfQDfFEY8AnYJwjalXCiosYRBIBZX8" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js" integrity="sha384-BLiI7JTZm+JWlgKa0M0kGRpJbF2J8q+qreVrKBC47e3K6BW78kGLrCkeRX6I9RoK" crossorigin="anonymous"></script>
+
+        <!-- Custom JS -->
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script type="text/javascript" src="js/app.js"></script>
     </body>
 </html>
