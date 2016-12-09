@@ -104,15 +104,25 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+										
                                         <?php
-                                                                                
-                                            $select_path = "select DISTINCT r.name, r.seats 
-                                            from room r, reservation re
-                                            where r.name != re.room_name";
+											$from = $_POST['from'];
+											$to = $_POST['to'];
+											$seats = $_POST['seats_num'];
+											
+                                            $select_path = "select  room_name, seats 
+                                            from reservation 
+                                            where (date_from <= '" . $from . "' AND date_to >= '" . $from . "') 
+											OR (date_from <= '" . $to . "' AND date_to >= '" . $to . "') 
+											OR ('" . $from . "' <= date_from AND '" . $to . "' >= date_from)";
+											
+											
+											
+											echo $select_path;
                                             $result = mysqli_query($conn, $select_path);
                                             while($row = $result->fetch_assoc()){
                                                 echo '<tr>
-                                                    <th scope="row">' . $row['name'] . '</th>
+                                                    <th scope="row">' . $row['room_name'] . '</th>
                                                     <td>' . $row['seats'] . '</td>
                                                     
                                                     </tr>';
