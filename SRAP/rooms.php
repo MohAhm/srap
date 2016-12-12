@@ -63,11 +63,11 @@
                     <form method="post" class="mb-3">
                         <fieldset class="form-group mb-2 has-warning">
                             <label for="from">Date From:</label>
-                            <input type="text" class="form-control form-control-warning" id="from" placeholder="yy-mm-dd" autocomplete="off"  name="from">
+                            <input type="text" class="form-control form-control-warning" id="from" placeholder="yyyy-mm-dd" autocomplete="off"  name="from">
                         </fieldset>
                         <fieldset class="form-group mb-2 has-warning">
                             <label for="to">Date To:</label>
-                            <input type="text" class="form-control form-control-warning" id="to" placeholder="yy-mm-dd" autocomplete="off"  name="to">
+                            <input type="text" class="form-control form-control-warning" id="to" placeholder="yyyy-mm-dd" autocomplete="off"  name="to">
                         </fieldset>
                         <fieldset class="form-group">
                             <label for="seats">Seats:</label>
@@ -104,44 +104,50 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+										
                                         <?php
-                                                                                
-                                            $select_path = "select DISTINCT r.name, r.seats 
-                                            from room r, reservation re
-                                            where r.name != re.room_name";
+											$from = $_POST['from'];
+											$to = $_POST['to'];
+											$seats = $_POST['s'];
+											
+											$select_path = "
+											SELECT t3.room_name, t3.seats
+											FROM
+												(SELECT t2.room_name, t2.seats FROM
+														(SELECT DISTINCT t1.room_name,  
+																if(r.seats - t1.seats - '" . $seats . "' >= 0, r.seats - t1.seats, 0) as seats
+														FROM	
+																(SELECT DISTINCT re.room_name, (SELECT SUM(seats)
+																					  FROM reservation
+																					  WHERE (re.room_name = room_name)
+																						  AND ((date_from <= '" . $from . "' AND date_to >= '" . $from . "') 
+																						  OR (date_from <= '" . $to . "' AND date_to >= '" . $to . "') 
+																						  OR ('" . $from . "' <= date_from AND '" . $to . "' >= date_from))) as seats
+																FROM reservation re 
+																WHERE 
+																	((date_from <= '" . $from . "' AND date_to >= '" . $from . "') 
+																	OR (date_from <= '" . $to . "' AND date_to >= '" . $to . "') 
+																	OR ('" . $from . "' <= date_from AND '" . $to . "' >= date_from))) as t1
+														INNER JOIN room r 
+														ON r.name = t1.room_name) as t2	
+												UNION
+												SELECT name, 
+												if(r.seats - '" . $seats . "' >= 0, r.seats, 0) as seats
+												FROM room r) as t3
+												
+											GROUP BY t3.room_name
+											HAVING t3.seats <> 0
+											ORDER BY t3.seats DESC
+											";
+										
                                             $result = mysqli_query($conn, $select_path);
                                             while($row = $result->fetch_assoc()){
                                                 echo '<tr>
-                                                    <th scope="row">' . $row['name'] . '</th>
+                                                    <th scope="row">' . $row['room_name'] . '</th>
                                                     <td>' . $row['seats'] . '</td>
                                                     
                                                     </tr>';
                                             }
-                                            
-                                            /*
-                                            if(isset($_POST['searchform'])){
-                                                $s = $_POST['s'];
-                                                $f = $_POST['f'];
-                                                $t = $_POST['t'];
-                                                if($t != '' and $f != ''){
-                                                $select_path = "SELECT r.name as name, r.seats as seats
-                                                                from room r
-                                                                WHERE r.name not IN (
-                                                                select DISTINCT re1.room_name
-                                                                from reservation re1
-                                                                where (('" . $f . "'<date_to) and ('" . $f . "'>=date_from)) 
-                                                                OR (('" . $t . "'>=date_from) AND ('" . $t . "'<=date_to)))";
-                                                $result = mysqli_query($conn, $select_path);
-                                            while($row = $result->fetch_assoc()){
-                                                echo '<tr>
-                                                    <th scope="row">' . $row['name'] . '</th>
-                                                    <td>' . $row['seats'] . '</td>
-                                                    
-                                                    </tr>';
-                                            }
-                                            }
-                                            }   
-                                            */
                                                                                 
                                         ?>
                                         </tbody>
