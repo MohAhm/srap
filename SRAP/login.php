@@ -31,13 +31,15 @@
                 <p>Enter your username and password to login.</p>
                 <fieldset class="form-group mb-2">
                     <label for="username">Username:</label>
-                    <input type="text" class="form-control" id="username" name="username">
+                    <input type="text" class="form-control form-control-warning" id="username" name="username" maxlength="30">
+                    <div class="form-control-feedback">Enter your username.</div>
                 </fieldset>
                 <fieldset class="form-group mb-2">
                     <label for="password">Password:</label>
-                    <input type="password" class="form-control" id="password" name="password">
+                    <input type="password" class="form-control form-control-warning" id="password" name="password" maxlength="30">
+                    <div class="form-control-feedback">Enter your password.</div>
                 </fieldset>
-                <input class="btn btn-primary btn-lg btn-block" type="submit" value="Log in">
+                <input id="login" class="btn btn-primary btn-lg btn-block" type="submit" value="Log in">
             </form>
         </div>
 
@@ -45,5 +47,9 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" integrity="sha384-3ceskX3iaEnIogmQchP8opvBy3Mi7Ce34nWjpBIwVTHfGYWQS9jwHDVRnpKKHJg7" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.7/js/tether.min.js" integrity="sha384-XTs3FgkjiBgo8qjEjBk0tGmf3wPrWtA6coPfQDfFEY8AnYJwjalXCiosYRBIBZX8" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js" integrity="sha384-BLiI7JTZm+JWlgKa0M0kGRpJbF2J8q+qreVrKBC47e3K6BW78kGLrCkeRX6I9RoK" crossorigin="anonymous"></script>
+
+        <!-- Custom JS -->
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script type="text/javascript" src="js/app.js"></script>
     </body>
 </html>

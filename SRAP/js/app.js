@@ -1,10 +1,16 @@
 
-var $dateInputFrom = $("#from");
-var $dateInputTo   = $("#to");
-var $seatsSelect   = $("#seats");
-var $roomSelect    = $("#room");
-var $addButton     = $("#book");
-var $booking       = $("#myBooking");
+var $startDate 		= $("#start_date");
+var $endDate   		= $("#end_date");
+var $seats   		= $("#seats");
+var $room    		= $("#room");
+var $addBookBtn		= $("#add_book");
+var $booking		= $("#booking");
+
+var $username 		= $("#username");
+var $password 		= $("#password");
+var $loginBtn		= $("#login");
+
+$(".form-control-feedback").hide();
 
 // NYI: form handler response to dynamically update available rooms
 
@@ -15,7 +21,7 @@ function getClosestDate(current, offset)
 	return newDate;
 };
 
-$dateInputFrom.datepicker({
+$startDate.datepicker({
 	dateFormat: "yy-mm-dd",
 	minDate: 0,
 	onSelect: function(dateText, inst) {
@@ -32,7 +38,7 @@ $dateInputFrom.datepicker({
 	}
 });
 
-$dateInputTo.datepicker({
+$endDate.datepicker({
 	dateFormat: "yy-mm-dd", 
 	minDate: 2,
 	onSelect: function(dateText, inst) {
@@ -77,22 +83,80 @@ function createNewBookElement(dateFrom, dateTo, seats, room)
 	return $listItem;
 };
 
+var isInputEmpty = function(text) {
+	return text.val().length > 0;
+};
+
+var isDateInputValid = function(date)
+{
+	var pattern = /(\d{4})-(\d{2})-(\d{2})/;
+	return pattern.test(date);
+};
+
+var dateInputEvent = function()
+{
+	if (isDateInputValid($(this).val())) {
+		$(this).next().hide();
+		$(this).parent().removeClass("has-warning");
+	}
+	else {
+		$(this).next().show();
+		$(this).parent().addClass("has-warning");
+	}
+};
+
+var textInputEvent = function()
+{
+	if (isInputEmpty($(this))) {
+		$(this).next().hide();
+		$(this).parent().removeClass("has-warning");
+	}
+	else {
+		$(this).next().show();
+		$(this).parent().addClass("has-warning");
+	}
+};
+
+// events in input
+$startDate.focus(dateInputEvent).keydown(dateInputEvent).keyup(dateInputEvent).change(dateInputEvent);
+$endDate.focus(dateInputEvent).keydown(dateInputEvent).keyup(dateInputEvent).change(dateInputEvent);
+$username.focus(textInputEvent).keydown(textInputEvent).keyup(textInputEvent);
+$password.focus(textInputEvent).keydown(textInputEvent).keyup(textInputEvent);
+
 // add booking
-$addButton.click(function()
+$addBookBtn.click(function()
 {
 	console.log("Add booking ...");
 
-	// here: should be some validation on inputs before calling createNewBookElement function
-	var $listItem = createNewBookElement($dateInputFrom.val(), $dateInputTo.val(), 
-									     $seatsSelect.val(), $roomSelect.val());
+	var startDateValid = isDateInputValid($startDate.val());
+	var endDateValid = isDateInputValid($endDate.val());
 
-	$booking.append($listItem);
+	if (startDateValid && endDateValid) {
+		var $listItem = createNewBookElement($startDate.val(), $endDate.val(), 
+										     $seats.val(), $room.val());
 
-	// ## add values to the db ##
+		$booking.append($listItem);
 
-	// reset values
-	$dateInputFrom.val("");
-	$dateInputTo.val("");
+		// ## add values to the db ##
+
+		// reset values
+		$startDate.val("");
+		$endDate.val("");
+	}
+	else if (startDateValid && !(endDateValid)) {
+		$endDate.next().show();
+		$endDate.parent().addClass("has-warning");
+	}
+	else if (!(startDateValid) && endDateValid) {
+		$startDate.next().show();
+		$startDate.parent().addClass("has-warning");
+	}
+	else {
+		$startDate.next().show();
+		$startDate.parent().addClass("has-warning");
+		$endDate.next().show();
+		$endDate.parent().addClass("has-warning");
+	}
 });
 
 // cancel booking
@@ -104,4 +168,6 @@ $booking.on("click", "a", function()
 
 	// ## delete item from db ##
 });
+
+
 
