@@ -63,12 +63,12 @@
                     <form method="post" class="mb-3">
                         <fieldset class="form-group mb-2">
                             <label for="from">Date From:</label>
-                            <input type="text" class="form-control form-control-warning" id="start_date" placeholder="yyyy-mm-dd" autocomplete="off" maxlength="10">
+                            <input type="text" class="form-control form-control-warning" id="start_date" placeholder="yyyy-mm-dd" autocomplete="off" maxlength="10" name="from">
                             <div class="form-control-feedback">Date must be in the format of YYYY-MM-DD</div>
                         </fieldset>
                         <fieldset class="form-group mb-2">
                             <label for="to">Date To:</label>
-                            <input type="text" class="form-control form-control-warning" id="end_date" placeholder="yyyy-mm-dd" autocomplete="off" maxlength="10">
+                            <input type="text" class="form-control form-control-warning" id="end_date" placeholder="yyyy-mm-dd" autocomplete="off" maxlength="10" name="to">
                             <div class="form-control-feedback">Date must be in the format of YYYY-MM-DD</div>
                         </fieldset>
                         <fieldset class="form-group">
