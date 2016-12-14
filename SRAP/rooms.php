@@ -150,7 +150,11 @@
                                                     
                                                     </tr>';
                                             }
-                                                                                
+                                            
+											if($_SESSION["role"] == 'admin') {
+												// Print all bookings between those dates
+												
+											}
                                         ?>
                                         </tbody>
                                     </table>
