@@ -150,14 +150,42 @@
                                                     
                                                     </tr>';
                                             }
-                                            
-											if($_SESSION["role"] == 'admin') {
-												// Print all bookings between those dates
-												
-											}
                                         ?>
                                         </tbody>
                                     </table>
+									<?php
+										// If admin search, make a second table with all the reservation during that time period and list them with a cancel button
+										if($_SESSION["role"] == 'admin') {
+												echo '<table class="table table-striped">
+														<thead>
+															<tr>
+																<th>User</th>
+																<th>Room</th>
+																<th>Seats</th>
+																<th>Date</th>
+																<th></th>
+															</tr>
+														</thead>
+												<tbody>';
+												
+													// Print all bookings between those dates
+													$select_path = "SELECT room_name, seats, name, date_to, date_from FROM reservation";
+													$result = mysqli_query($conn, $select_path);
+													while($row = $result->fetch_assoc()) {
+														echo '
+														<tr>
+															<th scope="row">' . $row['name'] . '</th>
+																<td>' . $row['room_name'] . '</td> 
+																<td>' . $row['seats'] . '</td> 
+																<td>' . $row['date_from'] . ' - ' . $row['date_to'] . '</td>
+																<td> <img class="icon" src="img/cancel.svg" alt="icon"> </td> 
+														</tr>';
+													}
+												
+												
+												echo '</tbody> </table>';
+										}
+									?>
                                 </div><!-- end tab textual-->
                                 <div class="tab-pane" id="graphic" role="tabpanel">
 									<img class="img-fluid" src="img/temporaryMap.png" alt="Could not fetch Map"/>
