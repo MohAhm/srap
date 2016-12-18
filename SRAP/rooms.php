@@ -166,7 +166,7 @@
 																<th></th>
 															</tr>
 														</thead>
-												<tbody>';
+												<tbody id="AdminList">';
 												
 													// Print all bookings between those dates
 													$select_path = "SELECT room_name, seats, name, date_to, date_from 
