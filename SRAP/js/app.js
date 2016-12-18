@@ -163,11 +163,14 @@ $addBookBtn.click(function()
 $booking.on("click", "a", function() 
 {
 	console.log("Cancel");
-
+	
 	$(this).parentsUntil(".list-group").remove();
 
 	// ## delete item from db ##
 });
 
+$( "#AdminList a" ).click(function() {
+	$(this).parents('tr').remove();
+});
 
 
