@@ -169,7 +169,12 @@
 												<tbody>';
 												
 													// Print all bookings between those dates
-													$select_path = "SELECT room_name, seats, name, date_to, date_from FROM reservation";
+													$select_path = "SELECT room_name, seats, name, date_to, date_from 
+																	FROM reservation 
+																	WHERE 
+																		(date_from <= '" . $from . "' AND date_to >= '" . $from . "')
+																		OR (date_from <= '" . $to . "' AND date_to >= '" . $to . "')
+																		OR ('" . $from . "' <= date_from AND '" . $to . "' >= date_from)";
 													$result = mysqli_query($conn, $select_path);
 													while($row = $result->fetch_assoc()) {
 														echo '
