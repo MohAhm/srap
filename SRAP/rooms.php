@@ -179,6 +179,7 @@
 													while($row = $result->fetch_assoc()) {
 														echo '
 														<tr>
+																<td>' . $row['name'] . '</td>
 																<td>' . $row['room_name'] . '</td> 
 																<td>' . $row['seats'] . '</td> 
 																<td>' . $row['date_from'] . ' - ' . $row['date_to'] . '</td>
