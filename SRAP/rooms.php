@@ -179,7 +179,6 @@
 													while($row = $result->fetch_assoc()) {
 														echo '
 														<tr>
-															<th scope="row">' . $row['name'] . '</th>
 																<td>' . $row['room_name'] . '</td> 
 																<td>' . $row['seats'] . '</td> 
 																<td>' . $row['date_from'] . ' - ' . $row['date_to'] . '</td>

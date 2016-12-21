@@ -165,12 +165,33 @@ $booking.on("click", "a", function()
 	console.log("Cancel");
 	
 	$(this).parentsUntil(".list-group").remove();
+	
 
 	// ## delete item from db ##
 });
 
 $( "#AdminList a" ).click(function() {
-	$(this).parents('tr').remove();
+	var papa = $(this).parents('tr');
+	var $rows = papa.find("td");
+	var rowArray = [];
+	
+	// Push all values from row to array
+	$.each($rows, function() {
+		rowArray.push($(this).text());
+	});
+	
+	// Split date string
+	var date = rowArray[3].split(' - ');
+	
+	// 'rowArray[0]' = user, 'rowArray[1]' = room, 'rowArray[2]' = seats
+	// 'date[0]' = date_from, 'date[1] = date_to
+
+	
+	
+	// ## delete item from db ## 
+	
+	// Remove tablerow
+	papa.remove();
 });
 
 

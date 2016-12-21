@@ -115,7 +115,7 @@
                                 <h3 class="my-2">My Bookings:</h3>
 								<ul id="booking" class="list-group">
 								<?php
-								    $select_path = "SELECT * from reservation";
+								    $select_path = "SELECT * from reservation WHERE name = '" . $_SESSION["username"] . "'";
 									$result = mysqli_query($conn, $select_path);
 
 									while($row = $result->fetch_assoc()){
