@@ -140,7 +140,6 @@
 													
 												GROUP BY t3.room_name
 												HAVING t3.seats <> 0
-												ORDER BY t3.seats DESC
 												";
 											
 												$result = mysqli_query($conn, $select_path);
