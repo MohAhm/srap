@@ -27,8 +27,8 @@ $startDate.datepicker({
 	onSelect: function(dateText, inst) {
 
 		var fromDate = new Date(dateText);
-		var toDate = $dateInputTo.datepicker('getDate');
-
+		var toDate = $endDate.datepicker('getDate');
+		
 		// Assert start date is prior to end date
 		if ( !(toDate) || (fromDate <= toDate) ) {
 			// Call to form handler.
@@ -44,7 +44,7 @@ $endDate.datepicker({
 	onSelect: function(dateText, inst) {
 
 		var toDate = new Date(dateText);
-		var fromDate = $dateInputFrom.datepicker('getDate');
+		var fromDate = $startDate.datepicker('getDate');
 
 		// Assert start date is prior to end date
 		if ( !(fromDate) || (fromDate <= toDate) ) {
@@ -103,6 +103,7 @@ var dateInputEvent = function()
 		$(this).next().show();
 		$(this).parent().addClass("has-warning");
 	}
+
 };
 
 var textInputEvent = function()
@@ -138,6 +139,12 @@ $addBookBtn.click(function()
 		$booking.append($listItem);
 
 		// ## add values to the db ##
+		$.ajax({
+			url: 'booking.php',
+			type: 'post',
+			data: { "from": $startDate.val(), "to": $endDate.val(), "seats_num": $seats.val(), "room_name": $room.val()},
+			success: function(response) { }
+		});
 
 		// reset values
 		$startDate.val("");
@@ -159,18 +166,54 @@ $addBookBtn.click(function()
 	}
 });
 
+
+// Update the list of available rooms when booking
+function updateAvailableRooms(dateFrom, dateTo, seats)
+{
+	console.log("Updated available rooms");
+	$.ajax({
+			url: 'updateAvailableRooms.php',
+			type: 'post',
+			data: { "from": dateFrom, "to": dateTo, "seats": seats},
+			success: function(data){
+				// Replace selector list with a new one
+				$("#room").html(data);
+		}
+			
+		});
+};
+
 // cancel booking
 $booking.on("click", "a", function() 
 {
 	console.log("Cancel");
-	
-	$(this).parentsUntil(".list-group").remove();
-	
 
 	// ## delete item from db ##
+	var papa = $(this).parentsUntil(".list-group");
+	var liRoomname = papa.find("#li_room_name").text();
+	var liDateFrom = papa.find("#li_date_from").text();
+	var liDateTo = papa.find("#li_date_to").text();
+
+	// ## delete item from db ## 
+	$.ajax({
+			url: 'removeBooking.php',
+			type: 'post',
+			data: { "room_name": liRoomname, "from": liDateFrom, "to": liDateTo},
+			success: function(response) { console.log("booking removed")}
+		});
+	
+	
+	// Remove tablerow
+	papa.remove();
+	
 });
 
+
+// admin cancel
 $( "#AdminList a" ).click(function() {
+	
+	console.log("Admin cancel");
+	
 	var papa = $(this).parents('tr');
 	var $rows = papa.find("td");
 	var rowArray = [];
@@ -183,12 +226,14 @@ $( "#AdminList a" ).click(function() {
 	// Split date string
 	var date = rowArray[3].split(' - ');
 	
-	// 'rowArray[0]' = user, 'rowArray[1]' = room, 'rowArray[2]' = seats
-	// 'date[0]' = date_from, 'date[1] = date_to
-
-	
-	
 	// ## delete item from db ## 
+	$.ajax({
+			url: 'removeBooking.php',
+			type: 'post',
+			data: { "user": rowArray[0],"room_name": rowArray[1], "from": date[0], "to": date[1]},
+			success: function(response) { console.log("booking removed")}
+		});
+	
 	
 	// Remove tablerow
 	papa.remove();

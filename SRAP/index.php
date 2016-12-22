@@ -96,11 +96,11 @@
                                         <label for="room">Room Name:</label>
                                         <select class="custom-select form-control" id="room" name="room_name">
 										    <?php
-											    $select_path = "select name from room";
+											    /*$select_path = "select name from room";
 												$result = mysqli_query($conn, $select_path);
 											    while($row = $result->fetch_assoc()){
 												    echo '<option>' . $row['name'] . '</option>';
-											    }
+											    }*/
 											?>
                                         </select> 
                                     </fieldset>
@@ -121,14 +121,14 @@
 									while($row = $result->fetch_assoc()){
 										echo    '<li class="list-group-item">
 											         <h4 class="list-group-item-heading">
-													  ' . $row['date_from'] . ' - ' . $row['date_to'] . '
+													  <span id="li_date_from">' . $row['date_from'] . '</span> - <span id="li_date_to">' . $row['date_to'] . '</span>
 													   <span class="tag tag-pill float-xs-right">
 												            <a href="#">
                                                                 <img class="icon" src="img/cancel.svg" alt="icon">
 													        </a> 
 													   </span>
 												    </h4>
-												    ' . $row['room_name'] . ', ' . $row['seats'] . ' Seat
+												    <span id="li_room_name">' . $row['room_name'] . '</span>, <span id ="li_seats">' . $row['seats'] . '</span> Seat
 											    </li>';
 											}
 								?>
