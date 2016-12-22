@@ -178,6 +178,7 @@ $addBookBtn.click(function()
 		// reset values
 		$startDate.val("");
 		$endDate.val("");
+		$("#room").children().remove();
 	}
 	else if (startDateValid && !(endDateValid)) {
 		$endDate.next().show();
