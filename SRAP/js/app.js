@@ -21,41 +21,6 @@ function getClosestDate(current, offset)
 	return newDate;
 };
 
-$startDate.datepicker({
-	dateFormat: "yy-mm-dd",
-	minDate: 0,
-	onSelect: function(dateText, inst) {
-
-		var fromDate = new Date(dateText);
-		var toDate = $endDate.datepicker('getDate');
-		
-		// Assert start date is prior to end date
-		if ( !(toDate) || (fromDate <= toDate) ) {
-			// Call to form handler.
-		} else {
-			$(this).datepicker('setDate', getClosestDate(toDate, -1));
-		}
-	}
-});
-
-$endDate.datepicker({
-	dateFormat: "yy-mm-dd", 
-	minDate: 2,
-	onSelect: function(dateText, inst) {
-
-		var toDate = new Date(dateText);
-		var fromDate = $startDate.datepicker('getDate');
-
-		// Assert start date is prior to end date
-		if ( !(fromDate) || (fromDate <= toDate) ) {
-			// Call to form handler.
-		} else {
-			$(this).datepicker('setDate', getClosestDate(fromDate, 1));
-		}
-	}
-});
-
-
 function createNewBookElement(dateFrom, dateTo, seats, room)
 {
 	var $listItem = $("<li></li>");
@@ -93,15 +58,15 @@ var isDateInputValid = function(date)
 	return pattern.test(date);
 };
 
-var dateInputEvent = function()
+function dateInputEvent(date)
 {
-	if (isDateInputValid($(this).val())) {
-		$(this).next().hide();
-		$(this).parent().removeClass("has-warning");
+	if (isDateInputValid(date.val())) {
+		date.next().hide();
+		date.parent().removeClass("has-warning");
 	}
 	else {
-		$(this).next().show();
-		$(this).parent().addClass("has-warning");
+		date.next().show();
+		date.parent().addClass("has-warning");
 	}
 
 };
@@ -118,11 +83,75 @@ var textInputEvent = function()
 	}
 };
 
-// events in input
-$startDate.focus(dateInputEvent).keydown(dateInputEvent).keyup(dateInputEvent).change(dateInputEvent);
-$endDate.focus(dateInputEvent).keydown(dateInputEvent).keyup(dateInputEvent).change(dateInputEvent);
-$username.focus(textInputEvent).keydown(textInputEvent).keyup(textInputEvent);
-$password.focus(textInputEvent).keydown(textInputEvent).keyup(textInputEvent);
+// Update the list of available rooms when booking
+function updateAvailableRooms(dateFrom, dateTo, seats)
+{
+	console.log("Updated available rooms");
+	$.ajax({
+			url: 'updateAvailableRooms.php',
+			type: 'post',
+			data: { "from": dateFrom, "to": dateTo, "seats": seats},
+			success: function(data){
+				// Replace selector list with a new one
+				$("#room").html(data);
+		}
+			
+	});
+};
+
+$startDate.datepicker({
+	dateFormat: "yy-mm-dd",
+	minDate: 0,
+	onSelect: function(dateText, inst) {
+
+		var fromDate = new Date(dateText);
+		var toDate = $endDate.datepicker('getDate');
+		
+		// Assert start date is prior to end date
+		if ( !(toDate) || (fromDate <= toDate) ) {
+			// Call to form handler.
+		} else {
+			$(this).datepicker('setDate', getClosestDate(toDate, -1));
+		}
+
+		$(this).change();
+	}
+}).on("input change", function() 
+{
+	console.log("Start date change ...");
+    dateInputEvent($(this));
+    updateAvailableRooms($startDate.val(), $endDate.val(), $seats.val());
+});
+
+$endDate.datepicker({
+	dateFormat: "yy-mm-dd", 
+	minDate: 0,
+	onSelect: function(dateText, inst) {
+
+		var toDate = new Date(dateText);
+		var fromDate = $startDate.datepicker('getDate');
+
+		// Assert start date is prior to end date
+		if ( !(fromDate) || (fromDate <= toDate) ) {
+			// Call to form handler.
+		} else {
+			$(this).datepicker('setDate', getClosestDate(fromDate, 1));
+		}
+
+		$(this).change();
+	}
+}).on("input change", function() 
+{
+	console.log("End date change ...");
+    dateInputEvent($(this));
+    updateAvailableRooms($startDate.val(), $endDate.val(), $seats.val());
+});
+
+$seats.change(function() 
+{
+	console.log("Select change ...");
+	updateAvailableRooms($startDate.val(), $endDate.val(), $seats.val());
+});
 
 // add booking
 $addBookBtn.click(function()
@@ -166,23 +195,6 @@ $addBookBtn.click(function()
 	}
 });
 
-
-// Update the list of available rooms when booking
-function updateAvailableRooms(dateFrom, dateTo, seats)
-{
-	console.log("Updated available rooms");
-	$.ajax({
-			url: 'updateAvailableRooms.php',
-			type: 'post',
-			data: { "from": dateFrom, "to": dateTo, "seats": seats},
-			success: function(data){
-				// Replace selector list with a new one
-				$("#room").html(data);
-		}
-			
-		});
-};
-
 // cancel booking
 $booking.on("click", "a", function() 
 {
@@ -207,7 +219,6 @@ $booking.on("click", "a", function()
 	papa.remove();
 	
 });
-
 
 // admin cancel
 $( "#AdminList a" ).click(function() {
@@ -239,4 +250,7 @@ $( "#AdminList a" ).click(function() {
 	papa.remove();
 });
 
+// events in input
+$username.focus(textInputEvent).keydown(textInputEvent).keyup(textInputEvent);
+$password.focus(textInputEvent).keydown(textInputEvent).keyup(textInputEvent);
 
