@@ -54,15 +54,12 @@
                             <span class="hidden-sm-down">Rooms</span>
                         </a>
                     </li>
-					<?php if($_SESSION["role"] == 'admin') {
-					echo '<li class="nav-item">
-                        <a class="nav-link" href="admin.php">
-                            <img class="icon" src="img/view.svg" alt="icon">
-                            <span class="hidden-sm-down">Admin</span>
+                    <li class="nav-item">
+                        <a class="nav-link" href="administration.php">
+                            <img class="icon" style="weight:"24px" height="24px" " src="img/admin.png" alt="icon">
+                            <span class="hidden-sm-down">Administration</span>
                         </a>
-						</li>';
-					}
-					?>
+                    </li>
                 </ul>
                 <!-- end sidebar--> 
                 
@@ -91,6 +88,7 @@
                                 <option value="6">6</option>
                             </select>
                         </fieldset>
+                        <button type="submit" class="btn btn-primary" name="searchform">Search</button>
                     </form>
                     <div class="container-fluid">
                         <div class="row">
@@ -113,12 +111,55 @@
                                                 <th>Seats Available</th>
                                             </tr>
                                         </thead>
-                                        <tbody id="textTableBodyRooms">
-											<!-- Javascript code will update table -->
+                                        <tbody>
+										
+                                        <?php
+											$from = $_POST['from'];
+											$to = $_POST['to'];
+											$seats = $_POST['s'];
+											
+											if($to != "" || $from != ""){
+												$select_path = "
+												SELECT t3.room_name, t3.seats
+												FROM
+													(SELECT t2.room_name, t2.seats FROM
+															(SELECT DISTINCT t1.room_name,  
+																	if(r.seats - t1.seats - '" . $seats . "' >= 0, r.seats - t1.seats, 0) as seats
+															FROM	
+																	(SELECT DISTINCT re.room_name, (SELECT SUM(seats)
+																						  FROM reservation
+																						  WHERE (re.room_name = room_name)
+																							  AND ((date_from <= '" . $from . "' AND date_to >= '" . $from . "') 
+																							  OR (date_from <= '" . $to . "' AND date_to >= '" . $to . "') 
+																							  OR ('" . $from . "' <= date_from AND '" . $to . "' >= date_from))) as seats
+																	FROM reservation re 
+																	WHERE 
+																		((date_from <= '" . $from . "' AND date_to >= '" . $from . "') 
+																		OR (date_from <= '" . $to . "' AND date_to >= '" . $to . "') 
+																		OR ('" . $from . "' <= date_from AND '" . $to . "' >= date_from))) as t1
+															INNER JOIN room r 
+															ON r.name = t1.room_name) as t2	
+													UNION
+													SELECT name, 
+													if(r.seats - '" . $seats . "' >= 0, r.seats, 0) as seats
+													FROM room r) as t3
+													
+												GROUP BY t3.room_name
+												HAVING t3.seats <> 0
+												";
+											
+												$result = mysqli_query($conn, $select_path);
+												while($row = $result->fetch_assoc()){
+													echo '<tr>
+														<th scope="row">' . $row['room_name'] . '</th>
+														<td>' . $row['seats'] . '</td>
+														
+														</tr>';
+												}
+											}
+                                        ?>
                                         </tbody>
                                     </table>
-									
-
                                 </div><!-- end tab textual-->
                                 <div class="tab-pane" id="graphic" role="tabpanel">
 									<img class="img-fluid" src="img/temporaryMap.png" alt="Could not fetch Map"/>
