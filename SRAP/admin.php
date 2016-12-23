@@ -72,7 +72,7 @@
                 
                 <!-- main -->
                 <div id="main" class="col-md-9 offset-md-3 col-sm-10 offset-sm-2 offset-xs-1">
-                    <h1 class="mb-3">Available Rooms</h1>
+                    <h1 class="mb-3">Booked Rooms</h1>
                     <form method="post" class="mb-3">
                         <fieldset class="form-group mb-2">
                             <label for="from">Date From:</label>
