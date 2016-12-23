@@ -104,7 +104,7 @@
                             </ul>
 
                             <!-- tab content -->
-                            <div class="tab-content">
+                            <div class="tab-content mb-3">
                                 <div class="tab-pane" id="textual" role="tabpanel"> 
                                     <table class="table table-striped">
                                         <thead>
