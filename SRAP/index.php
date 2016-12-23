@@ -59,15 +59,12 @@
                             <span class="hidden-sm-down">Rooms</span>
                         </a>
                     </li>
-					<?php if($_SESSION["role"] == 'admin') {
-					echo '<li class="nav-item">
-                        <a class="nav-link" href="admin.php">
-                            <img class="icon" src="img/view.svg" alt="icon">
-                            <span class="hidden-sm-down">Admin</span>
+                    <li class="nav-item">
+                        <a class="nav-link" href="administration.php">
+                            <img class="icon" style="weight:"24px" height="24px" " src="img/admin.png" alt="icon">
+                            <span class="hidden-sm-down">Administration</span>
                         </a>
-						</li>';
-					}
-					?>
+                    </li>
                 </ul>
                 <!-- end sidebar--> 
                 
