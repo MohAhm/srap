@@ -34,13 +34,18 @@ if($to != "" && $from != ""){
 	GROUP BY t3.room_name
 	HAVING t3.seats <> 0";
 
-
-		
+	$json = array();
 	$result = mysqli_query($conn, $select_path);
 
 	while($row = $result->fetch_assoc()) {
-		echo '<option>' . $row['room_name'] . '</option>';
+		$row_array['room_name'] = $row['room_name'];
+		$row_array['seats'] = $row['seats'];
+		
+		array_push($json, $row_array);
+		//echo '<option>' . $row['room_name'] . '</option>';
 	}
+	
+	echo json_encode($json);
 }
 
 

@@ -1,6 +1,10 @@
 <?php
     session_start();
     include 'connect_mysql.php';
+	
+	if($_SESSION["role"] != 'admin') {
+		header("Location: index.php");
+	}
 ?>
 
 <!DOCTYPE html>
@@ -80,17 +84,7 @@
                             <input type="text" class="form-control form-control-warning" id="end_date" placeholder="yyyy-mm-dd" autocomplete="off" maxlength="10" name="to">
                             <div class="form-control-feedback">Date must be in the format of YYYY-MM-DD</div>
                         </fieldset>
-                        <fieldset class="form-group">
-                            <label for="seats">Seats:</label>
-                            <select class="form-control custom-select" id="seats" name="s">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
-                            </select>
-                        </fieldset>
+
                     </form>
                     <div class="container-fluid">
                         <div class="row">
@@ -107,18 +101,20 @@
                             <div class="tab-content">
                                 <div class="tab-pane active" id="textual" role="tabpanel"> 
                                     <table class="table table-striped">
-                                        <thead>
-                                            <tr>
-                                                <th>Room Number</th>
-                                                <th>Seats Available</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="textTableBodyRooms">
-											<!-- Javascript code will update table -->
-                                        </tbody>
-                                    </table>
+										<thead>
+											<tr>
+												<th>User</th>
+												<th>Room</th>
+												<th>Seats</th>
+												<th>Date</th>
+												<th></th>
+											</tr>
+										</thead>
+										<tbody id="AdminList">
+											<!-- Javascript will fill the tables -->
+										</tbody> 
+									</table>
 									
-
                                 </div><!-- end tab textual-->
                                 <div class="tab-pane" id="graphic" role="tabpanel">
 									<img class="img-fluid" src="img/temporaryMap.png" alt="Could not fetch Map"/>

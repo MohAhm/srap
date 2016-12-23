@@ -83,17 +83,80 @@ var textInputEvent = function()
 	}
 };
 
-// Update the list of available rooms when booking
-function updateAvailableRooms(dateFrom, dateTo, seats)
+// Update the table in rooms.php with a list of available rooms
+function updateTableInRoom(dateFrom, dateTo, seats)
+{
+	// Callback function to get a list of object(rooms)
+	getAvailableRooms(dateFrom, dateTo, seats, function(returnValue) {
+		
+		// Clear the table body
+		$('#textTableBodyRooms > tr').remove();
+		
+		// Add the rooms to the table
+		$.each( returnValue, function( key, value ) {
+			$("#textTableBodyRooms").append('<tr><th scope="row">' + value.room_name + '</th><td>' + value.seats + '</td></tr>')
+		});
+	});
+	
+};
+
+// Updates the available room-names in index.php when booking
+function updateRoomsInBooking(dateFrom, dateTo, seats)
+{
+	// Callback function to get a list of object(rooms)
+	getAvailableRooms(dateFrom, dateTo, seats, function(returnValue) {
+		
+		// Build a string to echo it for the selector list
+		var selectString = "";
+		$.each( returnValue, function( key, value ) {
+			selectString += '<option>' + value.room_name + '</option>'
+		});
+
+		// Replace selector list with a new one
+		$("#room").html(selectString);
+	});
+};
+
+// Get an array of the available rooms
+function getAvailableRooms(dateFrom, dateTo, seats, callback)
 {
 	console.log("Updated available rooms");
 	$.ajax({
 			url: 'updateAvailableRooms.php',
 			type: 'post',
+			dataType: 'json',
 			data: { "from": dateFrom, "to": dateTo, "seats": seats},
 			success: function(data){
-				// Replace selector list with a new one
-				$("#room").html(data);
+				callback(data);
+		}
+			
+	});
+};
+
+function updateAdminList(dateFrom, dateTo)
+{
+	console.log("Updated admin list");
+	$.ajax({
+			url: 'sqlAdminFetch.php',
+			type: 'post',
+			dataType: 'json',
+			data: { "from": dateFrom, "to": dateTo},
+			success: function(data){
+				$('#AdminList > tr').remove();
+				$.each( data, function( key, value ) {
+					$("#AdminList").append(
+					'<tr>' +
+							'<td>' + value.name + '</td>' +
+							'<td>' + value.room_name + '</td>' + 
+							'<td>' + value.seats + '</td>' + 
+							'<td>' + value.date_from + ' - ' + value.date_to + '</td>' +
+							'<td> <a href="#">' +
+									'<img class="icon" src="img/cancel.svg" alt="icon">' + 
+								 '</a>' + 
+							'</td>' + 
+					'</tr>');
+				});
+			$("#AdminList").append('</tbody> </table>');
 		}
 			
 	});
@@ -120,7 +183,18 @@ $startDate.datepicker({
 {
 	console.log("Start date change ...");
     dateInputEvent($(this));
-    updateAvailableRooms($startDate.val(), $endDate.val(), $seats.val());
+	var path = window.location.pathname;
+	if(path.includes('index.php')){
+		updateRoomsInBooking($startDate.val(), $endDate.val(), $seats.val());
+	}
+	else if(path.includes('rooms.php')){
+		updateTableInRoom($startDate.val(), $endDate.val(), $seats.val());
+	}
+	else if(path.includes('admin.php')){
+		console.log("admin");
+		updateAdminList($startDate.val(), $endDate.val());
+	}
+    
 });
 
 $endDate.datepicker({
@@ -144,13 +218,29 @@ $endDate.datepicker({
 {
 	console.log("End date change ...");
     dateInputEvent($(this));
-    updateAvailableRooms($startDate.val(), $endDate.val(), $seats.val());
+    var path = window.location.pathname;
+	if(path.includes('index.php')){
+		updateRoomsInBooking($startDate.val(), $endDate.val(), $seats.val());
+	}
+	else if(path.includes('rooms.php')){
+		updateTableInRoom($startDate.val(), $endDate.val(), $seats.val());
+	}
+	else if(path.includes('admin.php')){
+		console.log("admin");
+		updateAdminList($startDate.val(), $endDate.val());
+	}
 });
 
 $seats.change(function() 
 {
-	console.log("Select change ...");
-	updateAvailableRooms($startDate.val(), $endDate.val(), $seats.val());
+	var path = window.location.pathname;
+	if(path.includes('index.php')){
+		updateRoomsInBooking($startDate.val(), $endDate.val(), $seats.val());
+	}
+	else if(path.includes('rooms.php')){
+		updateTableInRoom($startDate.val(), $endDate.val(), $seats.val());
+	}
+
 });
 
 // add booking
