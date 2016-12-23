@@ -99,7 +99,7 @@
                                     <a class="nav-link" href="#textual" data-toggle="tab" role="tab">Textual</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link active" href="#map" data-toggle="tab" role="tab">Graphic</a>
+                                    <a class="nav-link active" href="#map" data-toggle="tab" role="tab">Map</a>
                                 </li>
                             </ul>
 
