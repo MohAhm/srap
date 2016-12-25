@@ -99,7 +99,7 @@
                                     <a class="nav-link" href="#textual" data-toggle="tab" role="tab">Textual</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link active" href="#map" data-toggle="tab" role="tab">Map</a>
+                                    <a class="nav-link active" href="#graphic" data-toggle="tab" role="tab">Map</a>
                                 </li>
                             </ul>
 
@@ -167,8 +167,8 @@
                                         </tbody>
                                     </table>
                                 </div><!-- end tab textual-->
-                                <div class="tab-pane active" id="map" role="tabpanel">
-									<!-- <img class="img-fluid" src="img/temporaryMap.png" alt="Could not fetch Map"/> -->
+                                <div class="tab-pane active" id="graphic" role="tabpanel">
+                                    <div id="map"></div>
                                 </div>
                             </div>
                         </div> <!-- end row-->
