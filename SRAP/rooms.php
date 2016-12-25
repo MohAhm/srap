@@ -56,12 +56,16 @@
                             <span class="hidden-sm-down">Rooms</span>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="administration.php">
+                    <?php
+                    if($_SESSION["role"] == 'admin') {
+                    echo '<li class="nav-item">
+                        <a class="nav-link" href="admin.php">
                             <img class="icon" style="weight:"24px" height="24px" " src="img/admin.png" alt="icon">
                             <span class="hidden-sm-down">Administration</span>
                         </a>
-                    </li>
+                    </li>';
+                    }
+                    ?>
                 </ul>
                 <!-- end sidebar--> 
                 
@@ -90,7 +94,6 @@
                                 <option value="6">6</option>
                             </select>
                         </fieldset>
-                        <button type="submit" class="btn btn-primary" name="searchform">Search</button>
                     </form>
                     <div class="container-fluid">
                         <div class="row">
@@ -113,8 +116,9 @@
                                                 <th>Seats Available</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody id="textTableBodyRooms">
 										
+
                                         <?php
                                             if (isset($_POST["start_date"]) && 
                                                 isset($_POST["end_date"]) &&
@@ -164,6 +168,7 @@
     											}
                                             }
                                         ?>
+
                                         </tbody>
                                     </table>
                                 </div><!-- end tab textual-->

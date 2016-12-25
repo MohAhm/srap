@@ -61,8 +61,8 @@
 					<?php if($_SESSION["role"] == 'admin') {
 					echo '<li class="nav-item">
                         <a class="nav-link" href="admin.php">
-                            <img class="icon" src="img/view.svg" alt="icon">
-                            <span class="hidden-sm-down">Admin</span>
+                            <img class="icon" style="weight:"24px" height="24px" src="img/admin.png" alt="icon">
+                            <span class="hidden-sm-down">Administration</span>
                         </a>
 						</li>';
 					}
@@ -72,7 +72,7 @@
                 
                 <!-- main -->
                 <div id="main" class="col-md-9 offset-md-3 col-sm-10 offset-sm-2 offset-xs-1">
-                    <h1 class="mb-3">Available Rooms</h1>
+                    <h1 class="mb-3">Booked Rooms</h1>
                     <form method="post" class="mb-3">
                         <fieldset class="form-group mb-2">
                             <label for="from">Date From:</label>
@@ -88,14 +88,6 @@
                     </form>
                     <div class="container-fluid">
                         <div class="row">
-                            <ul class="nav nav-tabs mb-2">
-                                <li class="nav-item">
-                                    <a class="nav-link active" href="#textual" data-toggle="tab" role="tab">Textual</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#graphic" data-toggle="tab" role="tab">Graphic</a>
-                                </li>
-                            </ul>
 
                             <!-- tab content -->
                             <div class="tab-content">
