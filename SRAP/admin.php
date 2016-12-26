@@ -103,7 +103,7 @@
 											</tr>
 										</thead>
 										<tbody id="AdminList">
-											<!-- Javascript will fill the tables -->
+											<!-- app.js, function( updateAdminList ) will fill the table -->
 										</tbody> 
 									</table>
 									
