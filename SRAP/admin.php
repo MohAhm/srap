@@ -84,7 +84,6 @@
                             <input type="text" class="form-control form-control-warning" id="end_date" placeholder="yyyy-mm-dd" autocomplete="off" maxlength="10" name="to">
                             <div class="form-control-feedback">Date must be in the format of YYYY-MM-DD</div>
                         </fieldset>
-
                     </form>
                     <div class="container-fluid">
                         <div class="row">
@@ -114,6 +113,30 @@
                             </div>
                         </div> <!-- end row-->
                     </div> <!-- end container-->
+					
+					<hr>
+					<div class="container-fluid">
+						<h1 class="mb-3">Change Available Rooms</h1>
+						<form method="post" class="mb-3">
+							<fieldset class="form-group mb-2">
+								<label for="room">Room Name:</label>
+								<select class="custom-select form-control" id="room" name="room_name">
+									<?php
+										$select_path = "select name, available from room";
+										$result = mysqli_query($conn, $select_path);
+										while($row = $result->fetch_assoc()){
+											if($row['available'])
+												echo '<option>' . $row['name'] . "\t - \tavailable for booking" . '</option>';
+											else
+												echo '<option>' . $row['name'] . '	 - closed for booking' . '</option>';
+										}
+									?>
+								</select> 
+							</fieldset>
+							<input id="change_room_availability" class="btn btn-primary btn-lg" type="button" value="Change room availability">
+						</form>
+					</div>
+					
                 </div><!-- end main -->
             </div>
         </div>
