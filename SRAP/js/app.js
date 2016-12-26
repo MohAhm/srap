@@ -1,4 +1,4 @@
-
+ 
 var $startDate 		= $("#start_date");
 var $endDate   		= $("#end_date");
 var $seats   		= $("#seats");
@@ -19,7 +19,7 @@ function getClosestDate(current, offset)
 	var newDate = new Date();
 	newDate.setDate(current.getDate() + offset);
 	return newDate;
-};
+}
 
 function createNewBookElement(dateFrom, dateTo, seats, room)
 {
@@ -46,7 +46,7 @@ function createNewBookElement(dateFrom, dateTo, seats, room)
 	$listItem.append($info);
 
 	return $listItem;
-};
+}
 
 var isInputEmpty = function(text) {
 	return text.val().length > 0;
@@ -69,7 +69,7 @@ function dateInputEvent(date)
 		date.parent().addClass("has-warning");
 	}
 
-};
+}
 
 var textInputEvent = function()
 {
@@ -94,11 +94,11 @@ function updateTableInRoom(dateFrom, dateTo, seats)
 		
 		// Add the rooms to the table
 		$.each( returnValue, function( key, value ) {
-			$("#textTableBodyRooms").append('<tr><th scope="row">' + value.room_name + '</th><td>' + value.seats + '</td></tr>')
+			$("#textTableBodyRooms").append('<tr><th scope="row">' + value.room_name + '</th><td>' + value.seats + '</td></tr>');
 		});
 	});
 	
-};
+}
 
 // Updates the available room-names in index.php when booking
 function updateRoomsInBooking(dateFrom, dateTo, seats)
@@ -109,13 +109,13 @@ function updateRoomsInBooking(dateFrom, dateTo, seats)
 		// Build a string to echo it for the selector list
 		var selectString = "";
 		$.each( returnValue, function( key, value ) {
-			selectString += '<option>' + value.room_name + '</option>'
+			selectString += '<option>' + value.room_name + '</option>';
 		});
 
 		// Replace selector list with a new one
 		$("#room").html(selectString);
 	});
-};
+}
 
 // Get an array of the available rooms
 function getAvailableRooms(dateFrom, dateTo, seats, callback)
@@ -131,7 +131,7 @@ function getAvailableRooms(dateFrom, dateTo, seats, callback)
 		}
 			
 	});
-};
+}
 
 function updateAdminList(dateFrom, dateTo)
 {
@@ -160,7 +160,7 @@ function updateAdminList(dateFrom, dateTo)
 		}
 			
 	});
-};
+}
 
 $startDate.datepicker({
 	dateFormat: "yy-mm-dd",
@@ -302,7 +302,7 @@ $booking.on("click", "a", function()
 			url: 'removeBooking.php',
 			type: 'post',
 			data: { "room_name": liRoomname, "from": liDateFrom, "to": liDateTo},
-			success: function(response) { console.log("booking removed")}
+			success: function(response) { console.log("booking removed");}
 		});
 	
 	
@@ -333,7 +333,7 @@ $( "#AdminList a" ).click(function() {
 			url: 'removeBooking.php',
 			type: 'post',
 			data: { "user": rowArray[0],"room_name": rowArray[1], "from": date[0], "to": date[1]},
-			success: function(response) { console.log("booking removed")}
+			success: function(response) { console.log("booking removed");}
 		});
 	
 	

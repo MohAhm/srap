@@ -1,7 +1,7 @@
 <?php
     session_start();
     include 'connect_mysql.php';
-?>
+?> 
 
 <!DOCTYPE html>
 <html lang="en">
@@ -10,6 +10,7 @@
 
         <!-- Required meta tags always come first -->
         <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
         
         <!-- Google Font -->
@@ -17,7 +18,8 @@
 
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi" crossorigin="anonymous">
-
+        <!-- Mapbox CSS -->
+        <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.29.0/mapbox-gl.css' rel='stylesheet'/>
         <!-- Custom CSS -->
         <link rel="stylesheet" href="css/style.css">
     </head>
@@ -97,16 +99,16 @@
                         <div class="row">
                             <ul class="nav nav-tabs mb-2">
                                 <li class="nav-item">
-                                    <a class="nav-link active" href="#textual" data-toggle="tab" role="tab">Textual</a>
+                                    <a class="nav-link" href="#textual" data-toggle="tab" role="tab">Textual</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#graphic" data-toggle="tab" role="tab">Graphic</a>
+                                    <a class="nav-link active" href="#graphic" data-toggle="tab" role="tab">Map</a>
                                 </li>
                             </ul>
 
                             <!-- tab content -->
-                            <div class="tab-content">
-                                <div class="tab-pane active" id="textual" role="tabpanel"> 
+                            <div class="tab-content mb-3">
+                                <div class="tab-pane" id="textual" role="tabpanel"> 
                                     <table class="table table-striped">
                                         <thead>
                                             <tr>
@@ -116,12 +118,62 @@
                                         </thead>
                                         <tbody id="textTableBodyRooms">
 										
-                                        
+
+                                        <?php
+                                            if (isset($_POST["start_date"]) && 
+                                                isset($_POST["end_date"]) &&
+                                                isset($_POST["s"])) { 
+    											$from = $_POST['from'];
+    											$to = $_POST['to'];
+    											$seats = $_POST['s'];
+    											
+    											if($to != "" || $from != ""){
+    												$select_path = "
+    												SELECT t3.room_name, t3.seats
+    												FROM
+    													(SELECT t2.room_name, t2.seats FROM
+    															(SELECT DISTINCT t1.room_name,  
+    																	if(r.seats - t1.seats - '" . $seats . "' >= 0, r.seats - t1.seats, 0) as seats
+    															FROM	
+    																	(SELECT DISTINCT re.room_name, (SELECT SUM(seats)
+    																						  FROM reservation
+    																						  WHERE (re.room_name = room_name)
+    																							  AND ((date_from <= '" . $from . "' AND date_to >= '" . $from . "') 
+    																							  OR (date_from <= '" . $to . "' AND date_to >= '" . $to . "') 
+    																							  OR ('" . $from . "' <= date_from AND '" . $to . "' >= date_from))) as seats
+    																	FROM reservation re 
+    																	WHERE 
+    																		((date_from <= '" . $from . "' AND date_to >= '" . $from . "') 
+    																		OR (date_from <= '" . $to . "' AND date_to >= '" . $to . "') 
+    																		OR ('" . $from . "' <= date_from AND '" . $to . "' >= date_from))) as t1
+    															INNER JOIN room r 
+    															ON r.name = t1.room_name) as t2	
+    													UNION
+    													SELECT name, 
+    													if(r.seats - '" . $seats . "' >= 0, r.seats, 0) as seats
+    													FROM room r) as t3
+    													
+    												GROUP BY t3.room_name
+    												HAVING t3.seats <> 0
+    												";
+    											
+    												$result = mysqli_query($conn, $select_path);
+    												while($row = $result->fetch_assoc()){
+    													echo '<tr>
+    														<th scope="row">' . $row['room_name'] . '</th>
+    														<td>' . $row['seats'] . '</td>
+    														
+    														</tr>';
+    												}
+    											}
+                                            }
+                                        ?>
+
                                         </tbody>
                                     </table>
                                 </div><!-- end tab textual-->
-                                <div class="tab-pane" id="graphic" role="tabpanel">
-									<img class="img-fluid" src="img/temporaryMap.png" alt="Could not fetch Map"/>
+                                <div class="tab-pane active" id="graphic" role="tabpanel">
+                                    <div id="map"></div>
                                 </div>
                             </div>
                         </div> <!-- end row-->
@@ -135,9 +187,11 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" integrity="sha384-3ceskX3iaEnIogmQchP8opvBy3Mi7Ce34nWjpBIwVTHfGYWQS9jwHDVRnpKKHJg7" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.7/js/tether.min.js" integrity="sha384-XTs3FgkjiBgo8qjEjBk0tGmf3wPrWtA6coPfQDfFEY8AnYJwjalXCiosYRBIBZX8" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js" integrity="sha384-BLiI7JTZm+JWlgKa0M0kGRpJbF2J8q+qreVrKBC47e3K6BW78kGLrCkeRX6I9RoK" crossorigin="anonymous"></script>
-
-        <!-- Custom JS -->
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <!-- Mapbox JS -->
+        <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.29.0/mapbox-gl.js'></script>
+        <!-- Custom JS -->
         <script type="text/javascript" src="js/app.js"></script>
+        <script type="text/javascript" src="js/map.js"></script>
     </body>
 </html>
