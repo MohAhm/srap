@@ -120,15 +120,16 @@
 						<form method="post" class="mb-3">
 							<fieldset class="form-group mb-2">
 								<label for="room">Room Name:</label>
-								<select class="custom-select form-control" id="room" name="room_name">
+								<select class="custom-select form-control" id="room_n" name="room_name">
 									<?php
-										$select_path = "select name, available from room";
+										
+										$select_path = "select name, available from room ORDER BY available DESC";
 										$result = mysqli_query($conn, $select_path);
 										while($row = $result->fetch_assoc()){
 											if($row['available'])
 												echo '<option>' . $row['name'] . "\t - \tavailable for booking" . '</option>';
 											else
-												echo '<option>' . $row['name'] . '	 - closed for booking' . '</option>';
+												echo '<option>' . $row['name'] . "\t - \tclosed for booking" . '</option>';
 										}
 									?>
 								</select> 

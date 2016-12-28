@@ -342,6 +342,26 @@ $( "#AdminList a" ).click(function() {
 	papa.remove();
 });
 
+// Admin change room availability
+$("#change_room_availability").click(function() {
+	
+	var papa = $(this).parents('form');
+	var selector = $("#room_n").val().split(' - ');
+	
+	console.log("Switch availability in room");
+	
+	papa.find("option").remove();
+	
+	$.ajax({
+		url: 'roomavailable.php' ,
+		type: 'post' ,
+		data: { "room_name": selector[0], "available": selector[1]},
+		success: function(response) { console.log(response); }
+	});
+	
+	window.location = "admin.php";
+});
+
 // events in input
 $username.focus(textInputEvent).keydown(textInputEvent).keyup(textInputEvent);
 $password.focus(textInputEvent).keydown(textInputEvent).keyup(textInputEvent);
