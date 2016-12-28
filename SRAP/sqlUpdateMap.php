@@ -94,7 +94,8 @@ if($to != "" && $from != ""){
 							),
 				'properties'=> array( 
 									'id' 		=> $row['name'],
-									'message' 	=> 'Available seats (0)',
+									'message' 	=> 'Seats available (' . (int)$row['available'] . ')',
+									'seatsLeft' => (int)$row['seatsLeft'],
 									'status'	=> $available
 								),
 		);

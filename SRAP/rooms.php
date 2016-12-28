@@ -142,5 +142,6 @@
         <!-- Custom JS -->
         <script type="text/javascript" src="js/app.js"></script>
         <script type="text/javascript" src="js/map.js"></script>
+		<script type="text/javascript" src="js/sqlHandler.js"></script>
     </body>
 </html>
