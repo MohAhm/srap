@@ -151,5 +151,6 @@
         <!-- Custom JS -->
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
         <script type="text/javascript" src="js/app.js"></script>
+		<script type="text/javascript" src="js/sqlHandler.js"></script>
     </body>
 </html>
