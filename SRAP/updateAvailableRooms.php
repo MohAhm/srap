@@ -31,6 +31,9 @@ if($to != "" && $from != ""){
 		SELECT name, 
 		if(r.seats - '" . $seats . "' >= 0, r.seats, 0) as seats
 		FROM room r) as t3
+	INNER JOIN room rr
+	ON rr.name = t3.room_name
+	WHERE rr.available <> 0
 	GROUP BY t3.room_name
 	HAVING t3.seats <> 0";
 

@@ -120,7 +120,7 @@ function updateRoomsInBooking(dateFrom, dateTo, seats)
 // Get an array of the available rooms
 function getAvailableRooms(dateFrom, dateTo, seats, callback)
 {
-	console.log("Updated available rooms");
+	console.log("updated available rooms");
 	$.ajax({
 			url: 'updateAvailableRooms.php',
 			type: 'post',
@@ -189,9 +189,9 @@ $startDate.datepicker({
 	}
 	else if(path.includes('rooms.php')){
 		updateTableInRoom($startDate.val(), $endDate.val(), $seats.val());
+		updateMap($startDate.val(), $endDate.val(), $seats.val());
 	}
 	else if(path.includes('admin.php')){
-		console.log("admin");
 		updateAdminList($startDate.val(), $endDate.val());
 	}
     
@@ -224,9 +224,9 @@ $endDate.datepicker({
 	}
 	else if(path.includes('rooms.php')){
 		updateTableInRoom($startDate.val(), $endDate.val(), $seats.val());
+		updateMap($startDate.val(), $endDate.val(), $seats.val());
 	}
 	else if(path.includes('admin.php')){
-		console.log("admin");
 		updateAdminList($startDate.val(), $endDate.val());
 	}
 });
@@ -239,6 +239,7 @@ $seats.change(function()
 	}
 	else if(path.includes('rooms.php')){
 		updateTableInRoom($startDate.val(), $endDate.val(), $seats.val());
+		updateMap($startDate.val(), $endDate.val(), $seats.val());
 	}
 
 });
