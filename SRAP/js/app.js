@@ -107,7 +107,7 @@ $startDate.datepicker({
     dateInputEvent($(this));
 	var path = window.location.pathname;
 	if(path.includes('index.php')){
-		updateRoomsInBooking($startDate.val(), $endDate.val(), $seats.val());
+		updateMapAndText($startDate.val(), $endDate.val(), $seats.val());
 	}
 	else if(path.includes('rooms.php')){
 		updateMapAndText($startDate.val(), $endDate.val(), $seats.val());
@@ -141,7 +141,7 @@ $endDate.datepicker({
     dateInputEvent($(this));
     var path = window.location.pathname;
 	if(path.includes('index.php')){
-		updateRoomsInBooking($startDate.val(), $endDate.val(), $seats.val());
+		updateMapAndText($startDate.val(), $endDate.val(), $seats.val());
 	}
 	else if(path.includes('rooms.php')){
 		updateMapAndText($startDate.val(), $endDate.val(), $seats.val());
@@ -155,7 +155,7 @@ $seats.change(function()
 {
 	var path = window.location.pathname;
 	if(path.includes('index.php')){
-		updateRoomsInBooking($startDate.val(), $endDate.val(), $seats.val());
+		updateMapAndText($startDate.val(), $endDate.val(), $seats.val());
 	}
 	else if(path.includes('rooms.php')){
 		updateMapAndText($startDate.val(), $endDate.val(), $seats.val());
@@ -189,6 +189,7 @@ $addBookBtn.click(function()
 		$startDate.val("");
 		$endDate.val("");
 		$("#room").children().remove();
+		resetMap();
 	}
 	else if (startDateValid && !(endDateValid)) {
 		$endDate.next().show();
@@ -215,6 +216,7 @@ $booking.on("click", "a", function()
 	var liRoomname = papa.find("#li_room_name").text();
 	var liDateFrom = papa.find("#li_date_from").text();
 	var liDateTo = papa.find("#li_date_to").text();
+	resetMap();
 
 	// ## delete item from db ## 
 	$.ajax({

@@ -2,19 +2,21 @@ function updateMapAndText(dateFrom, dateTo, seats)
 {
 	// Callback function to get a list of object(rooms)
 	getAvailableRooms(dateFrom, dateTo, seats, function(returnValue) {
-		
+		console.log("updateMapAndText");
 		// ## UPDATE MAP ##
 		// If source layer dosn't exist on map, create it
 		if(map.getSource('rooms') === undefined)
-		{	
+		{
+			console.log("created map");
 			// Add source to the map with jsondata from DB
 			map.addSource('rooms', returnValue);
 
 			var statusColor = [
+			['Available', '#8AC854'],
 			['NotAvailable', '#ED4A4C'],
-			['Available', '#8AC854']
 			];
 
+			
 			statusColor.forEach(function (layer, i) {
 				map.addLayer({
 					"id": "room-" + i,
@@ -35,20 +37,36 @@ function updateMapAndText(dateFrom, dateTo, seats)
 			map.getSource('rooms').setData(returnValue['data']);
 		}
 		
-		// ## UPDATE TEXT ##
-		// Clear the table body
-		$('#textTableBodyRooms > tr').remove();
-		// Add the rooms to the table
-		$.each( returnValue['data']['features'], function( key, value ) {
-			if(value['properties'].status == 'Available' && value['properties'].seatsLeft > 0)
-				$("#textTableBodyRooms").append('<tr><th scope="row">' + value['properties'].id + '</th><td>' + value['properties'].seatsLeft + '</td></tr>');
-		});
+		var path = window.location.pathname;
+		if(path.includes('index.php')){
+			// Build a string to echo it for the selector list
+			var selectString = "";
+			$.each( returnValue['data']['features'], function( key, value ) {
+				if(value['properties'].status == 'Available' && value['properties'].seatsLeft > 0)
+					selectString += '<option>' + value['properties'].id + '</option>';
+			});
+
+			// Replace selector list with a new one
+			$("#room").html(selectString);
+		}
+		else if(path.includes('rooms.php')){
+			// ## UPDATE TEXT ##
+			// Clear the table body
+			$('#textTableBodyRooms > tr').remove();
+			// Add the rooms to the table
+			$.each( returnValue['data']['features'], function( key, value ) {
+				if(value['properties'].status == 'Available' && value['properties'].seatsLeft > 0)
+					$("#textTableBodyRooms").append('<tr><th scope="row">' + value['properties'].id + '</th><td>' + value['properties'].seatsLeft + '</td></tr>');
+			});
+		}		
 		
 	});
 }
 
+
 function updateAdminList(dateFrom, dateTo)
 {
+	console.log("updateAdminList");
 	$.ajax({
 			url: 'sqlAdminFetch.php',
 			type: 'post',
@@ -79,29 +97,11 @@ function updateAdminList(dateFrom, dateTo)
 }
 
 
-// Updates the available room-names in index.php when booking
-function updateRoomsInBooking(dateFrom, dateTo, seats)
-{
-	// Callback function to get a list of object(rooms)
-	getAvailableRooms(dateFrom, dateTo, seats, function(returnValue) {
-		
-		// Build a string to echo it for the selector list
-		var selectString = "";
-		$.each( returnValue['data']['features'], function( key, value ) {
-			if(value['properties'].status == 'Available' && value['properties'].seatsLeft > 0)
-				selectString += '<option>' + value['properties'].id + '</option>';
-		});
-
-		// Replace selector list with a new one
-		$("#room").html(selectString);
-	});
-}
-
 // Get an array of the available rooms
 function getAvailableRooms(dateFrom, dateTo, seats, callback)
 {
 	// Callback function that delivers a JSON with the rooms from DB
-	console.log("updated available rooms");
+	console.log("getAvailableRooms");
 	$.ajax({
 			url: 'sqlUpdateMap.php',
 			type: 'post',
