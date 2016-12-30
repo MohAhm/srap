@@ -24,14 +24,24 @@ function getClosestDate(current, offset)
 function createNewBookElement(dateFrom, dateTo, seats, room)
 {
 	var $listItem = $("<li></li>");
-	var $date = $("<h4></h4>");
-	var $info = $("<p></p>");
+	var $dateHolder = $("<h4></h4>");
+	var $dateTo = $("<span id='li_date_to'></span>")
+	var $dateFrom = $("<span id='li_date_from'></span>")
+	var $rName = $("<span id='li_room_name'></span>");
+	var $seats = $("<span id='li_seats'></span>")
 
 	$listItem.addClass("list-group-item");
-
-	$date.text(dateFrom + " -- " + dateTo);
-	$date.addClass("list-group-item-heading");
-	$date.append(
+	
+	$dateTo.text(dateTo);
+	$dateFrom.text(dateFrom);
+	$rName.text(room);
+	$seats.text(seats);
+	
+	$dateHolder.addClass("list-group-item-heading");
+	$dateHolder.append($dateFrom);
+	$dateHolder.append(" - ")
+	$dateHolder.append($dateTo);
+	$dateHolder.append(
 		$("<span class='tag tag-pill float-xs-right'/>").append(
 			$("<a href='#'/>").append(
 				$("<img class='icon' src='img/cancel.svg' alt='icon'/>")
@@ -39,12 +49,17 @@ function createNewBookElement(dateFrom, dateTo, seats, room)
 		)	
 	);
 
-	$info.text(room + ", " + seats + " Seat");
-	$info.addClass("mb-0");
-
-	$listItem.append($date);
-	$listItem.append($info);
-
+	$listItem.append($dateHolder);
+	$listItem.append($rName);
+	$listItem.append(", ");
+	$listItem.append($seats);
+	if(seats > 1)
+		$listItem.append(" Seats");
+	else
+		$listItem.append(" Seat");
+	
+	
+	
 	return $listItem;
 }
 
@@ -217,6 +232,8 @@ $booking.on("click", "a", function()
 	var liDateFrom = papa.find("#li_date_from").text();
 	var liDateTo = papa.find("#li_date_to").text();
 	resetMap();
+	
+	console.log(liRoomname);
 
 	// ## delete item from db ## 
 	$.ajax({
