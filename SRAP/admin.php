@@ -72,71 +72,69 @@
                 
                 <!-- main -->
                 <div id="main" class="col-md-9 offset-md-3 col-sm-10 offset-sm-2 offset-xs-1">
-                    <h1 class="mb-3">Booked Rooms</h1>
-                    <form method="post" class="mb-3">
-                        <fieldset class="form-group mb-2">
-                            <label for="from">Date From:</label>
-                            <input type="text" class="form-control form-control-warning" id="start_date" placeholder="yyyy-mm-dd" autocomplete="off" maxlength="10" name="from">
-                            <div class="form-control-feedback">Date must be in the format of YYYY-MM-DD</div>
-                        </fieldset>
-                        <fieldset class="form-group mb-2">
-                            <label for="to">Date To:</label>
-                            <input type="text" class="form-control form-control-warning" id="end_date" placeholder="yyyy-mm-dd" autocomplete="off" maxlength="10" name="to">
-                            <div class="form-control-feedback">Date must be in the format of YYYY-MM-DD</div>
-                        </fieldset>
-                    </form>
                     <div class="container-fluid">
                         <div class="row">
 
+						<ul class="nav nav-tabs mb-2">
+                                <li class="nav-item">
+                                    <a class="nav-link active" href="#bookedRooms" data-toggle="tab" role="tab">Booked rooms</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#changeAvailable" data-toggle="tab" role="tab">Change availability</a>
+                                </li>
+                            </ul>
                             <!-- tab content -->
                             <div class="tab-content">
-                                <div class="tab-pane active" id="textual" role="tabpanel"> 
+                                <div class="tab-pane active" id="bookedRooms" role="tabpanel"> 
                                     <table class="table table-striped">
-										<thead>
-											<tr>
-												<th>User</th>
-												<th>Room</th>
-												<th>Seats</th>
-												<th>Date</th>
-												<th></th>
-											</tr>
-										</thead>
+										<h1 class="mb-3">Booked Rooms</h1>
+										<form method="post" class="mb-3">
+											<fieldset class="form-group mb-2">
+												<label for="from">Date From:</label>
+												<input type="text" class="form-control form-control-warning" id="start_date" placeholder="yyyy-mm-dd" autocomplete="off" maxlength="10" name="from">
+												<div class="form-control-feedback">Date must be in the format of YYYY-MM-DD</div>
+											</fieldset>
+											<fieldset class="form-group mb-2">
+												<label for="to">Date To:</label>
+												<input type="text" class="form-control form-control-warning" id="end_date" placeholder="yyyy-mm-dd" autocomplete="off" maxlength="10" name="to">
+												<div class="form-control-feedback">Date must be in the format of YYYY-MM-DD</div>
+											</fieldset>
+										</form>
 										<tbody id="AdminList">
 											<!-- app.js, function( updateAdminList ) will fill the table -->
 										</tbody> 
 									</table>
 									
                                 </div><!-- end tab textual-->
-                                <div class="tab-pane" id="graphic" role="tabpanel">
-									<img class="img-fluid" src="img/temporaryMap.png" alt="Could not fetch Map"/>
+                                <div class="tab-pane" id="changeAvailable" role="tabpanel">
+										<h1 class="mb-3">Change Available Rooms</h1>
+										<form method="post" class="mb-3">
+											<fieldset class="form-group mb-2">
+												<label for="room">Room Name:</label>
+												<select class="custom-select form-control" id="room_n" name="room_name">
+													<?php
+														
+														$select_path = "select name, available from room ORDER BY available DESC";
+														$result = mysqli_query($conn, $select_path);
+														while($row = $result->fetch_assoc()){
+															if($row['available'])
+																echo '<option>' . $row['name'] . "\t - \tavailable for booking" . '</option>';
+															else
+																echo '<option>' . $row['name'] . "\t - \tclosed for booking" . '</option>';
+														}
+													?>
+												</select> 
+											</fieldset>
+											<input id="change_room_availability" class="btn btn-primary btn-lg" type="button" value="Change room availability">
+										</form>
+									
+								
                                 </div>
                             </div>
                         </div> <!-- end row-->
                     </div> <!-- end container-->
 					
-					<hr>
-					<div class="container-fluid">
-						<h1 class="mb-3">Change Available Rooms</h1>
-						<form method="post" class="mb-3">
-							<fieldset class="form-group mb-2">
-								<label for="room">Room Name:</label>
-								<select class="custom-select form-control" id="room_n" name="room_name">
-									<?php
-										
-										$select_path = "select name, available from room ORDER BY available DESC";
-										$result = mysqli_query($conn, $select_path);
-										while($row = $result->fetch_assoc()){
-											if($row['available'])
-												echo '<option>' . $row['name'] . "\t - \tavailable for booking" . '</option>';
-											else
-												echo '<option>' . $row['name'] . "\t - \tclosed for booking" . '</option>';
-										}
-									?>
-								</select> 
-							</fieldset>
-							<input id="change_room_availability" class="btn btn-primary btn-lg" type="button" value="Change room availability">
-						</form>
-					</div>
+					
 					
                 </div><!-- end main -->
             </div>

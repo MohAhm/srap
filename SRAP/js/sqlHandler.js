@@ -2,13 +2,13 @@ function updateMapAndText(dateFrom, dateTo, seats)
 {
 	// Callback function to get a list of object(rooms)
 	getAvailableRooms(dateFrom, dateTo, seats, function(returnValue) {
-		console.log("updateMapAndText");
+		
 		// ## UPDATE MAP ##
 		// If source layer dosn't exist on map, create it
 		if(map.getSource('rooms') === undefined)
 		{
 			console.log("created map");
-			// Add source to the map with jsondata from DB
+			// Add source to the map with JSONdata from DB
 			map.addSource('rooms', returnValue);
 
 			var statusColor = [
@@ -16,7 +16,7 @@ function updateMapAndText(dateFrom, dateTo, seats)
 			['NotAvailable', '#ED4A4C'],
 			];
 
-			
+			// Creates two layers, red and green depending if the room are available for booking
 			statusColor.forEach(function (layer, i) {
 				map.addLayer({
 					"id": "room-" + i,
@@ -37,7 +37,13 @@ function updateMapAndText(dateFrom, dateTo, seats)
 			map.getSource('rooms').setData(returnValue['data']);
 		}
 		
+		
+		
+		
+		// ## UPDATE TEXT ##
+		// Depending on webpage, server updates different
 		var path = window.location.pathname;
+		
 		if(path.includes('index.php')){
 			// Build a string to echo it for the selector list
 			var selectString = "";
@@ -49,8 +55,9 @@ function updateMapAndText(dateFrom, dateTo, seats)
 			// Replace selector list with a new one
 			$("#room").html(selectString);
 		}
+		
+		
 		else if(path.includes('rooms.php')){
-			// ## UPDATE TEXT ##
 			// Clear the table body
 			$('#textTableBodyRooms > tr').remove();
 			// Add the rooms to the table

@@ -231,7 +231,6 @@ $booking.on("click", "a", function()
 	var liRoomname = papa.find("#li_room_name").text();
 	var liDateFrom = papa.find("#li_date_from").text();
 	var liDateTo = papa.find("#li_date_to").text();
-	resetMap();
 	
 	console.log(liRoomname);
 
