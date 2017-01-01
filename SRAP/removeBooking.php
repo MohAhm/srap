@@ -52,7 +52,7 @@
 			$message->setSubject('Cancel Booking!');
 			$message->setFrom(array($adminMail => 'Admin'));
 			$message->setTo(array($userMail));
-			$message->setBody("Your booking seats on the room <b>$room</b> has been canceled by administrator", 'text/html');
+			$message->setBody("Your booking seat/seats on the room <b>$room</b> has been canceled by administrator", 'text/html');
 
 			// Send the message
 			$mailer->send($message);

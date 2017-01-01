@@ -221,17 +221,19 @@ CREATE TABLE `user` (
   `id` int(20) NOT NULL,
   `username` varchar(20) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `role` varchar(20) NOT NULL
+  `role` varchar(20) NOT NULL,
+  `mail` varchar(50) NOT NULL,
+  `mail_pwd` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `username`, `password`, `role`) VALUES
-(1, 'sussanne', 'admin', 'admin'),
-(2, 'Jan', 'user', 'user'),
-(3, 'Juraj', 'user', 'user');
+INSERT INTO `user` (`id`, `username`, `password`, `role`, `mail`, `mail_pwd`) VALUES
+(1, 'sussanne', 'admin', 'admin', 'srap_user@hotmail.com', 'userdva313'),
+(2, 'Jan', 'user', 'user', 'srap_user@hotmail.com', NULL),
+(3, 'Juraj', 'user', 'user', 'srap_user@hotmail.com', NULL);
 
 --
 -- Indexes for dumped tables
@@ -281,7 +283,7 @@ ALTER TABLE `room`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
