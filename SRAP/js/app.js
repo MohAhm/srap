@@ -248,7 +248,7 @@ $booking.on("click", "a", function()
 });
 
 // admin cancel
-$( "#AdminList a" ).click(function() {
+$( "#AdminList" ).on("click", "a", function() {
 	
 	console.log("Admin cancel");
 	

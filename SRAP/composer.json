@@ -1,0 +1,7 @@
+{
+    "name": "se2/srap",
+    "type": "library",
+    "require": {
+        "swiftmailer/swiftmailer": "^5.4"
+    }
+}
