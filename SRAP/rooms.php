@@ -1,7 +1,7 @@
 <?php
     session_start();
     include 'connect_mysql.php';
-?>
+?> 
 
 <!DOCTYPE html>
 <html lang="en">
@@ -10,6 +10,7 @@
 
         <!-- Required meta tags always come first -->
         <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
         
         <!-- Google Font -->
@@ -17,7 +18,8 @@
 
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi" crossorigin="anonymous">
-
+        <!-- Mapbox CSS -->
+        <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.29.0/mapbox-gl.css' rel='stylesheet'/>
         <!-- Custom CSS -->
         <link rel="stylesheet" href="css/style.css">
     </head>
@@ -54,6 +56,16 @@
                             <span class="hidden-sm-down">Rooms</span>
                         </a>
                     </li>
+                    <?php
+                    if($_SESSION["role"] == 'admin') {
+                    echo '<li class="nav-item">
+                        <a class="nav-link" href="admin.php">
+                            <img class="icon" style="weight:"24px" height="24px" " src="img/admin.png" alt="icon">
+                            <span class="hidden-sm-down">Administration</span>
+                        </a>
+                    </li>';
+                    }
+                    ?>
                 </ul>
                 <!-- end sidebar--> 
                 
@@ -61,13 +73,15 @@
                 <div id="main" class="col-md-9 offset-md-3 col-sm-10 offset-sm-2 offset-xs-1">
                     <h1 class="mb-3">Available Rooms</h1>
                     <form method="post" class="mb-3">
-                        <fieldset class="form-group mb-2 has-warning">
+                        <fieldset class="form-group mb-2">
                             <label for="from">Date From:</label>
-                            <input type="text" class="form-control form-control-warning" id="from" placeholder="yy-mm-dd" autocomplete="off"  name="from">
+                            <input type="text" class="form-control form-control-warning" id="start_date" placeholder="yyyy-mm-dd" autocomplete="off" maxlength="10" name="from">
+                            <div class="form-control-feedback">Date must be in the format of YYYY-MM-DD</div>
                         </fieldset>
-                        <fieldset class="form-group mb-2 has-warning">
+                        <fieldset class="form-group mb-2">
                             <label for="to">Date To:</label>
-                            <input type="text" class="form-control form-control-warning" id="to" placeholder="yy-mm-dd" autocomplete="off"  name="to">
+                            <input type="text" class="form-control form-control-warning" id="end_date" placeholder="yyyy-mm-dd" autocomplete="off" maxlength="10" name="to">
+                            <div class="form-control-feedback">Date must be in the format of YYYY-MM-DD</div>
                         </fieldset>
                         <fieldset class="form-group">
                             <label for="seats">Seats:</label>
@@ -80,22 +94,21 @@
                                 <option value="6">6</option>
                             </select>
                         </fieldset>
-                        <button type="submit" class="btn btn-primary" name="searchform">Search</button>
                     </form>
                     <div class="container-fluid">
                         <div class="row">
                             <ul class="nav nav-tabs mb-2">
                                 <li class="nav-item">
-                                    <a class="nav-link active" href="#textual" data-toggle="tab" role="tab">Textual</a>
+                                    <a class="nav-link" href="#textual" data-toggle="tab" role="tab">Textual</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#graphic" data-toggle="tab" role="tab">Graphic</a>
+                                    <a class="nav-link active" href="#graphic" data-toggle="tab" role="tab">Map</a>
                                 </li>
                             </ul>
 
                             <!-- tab content -->
-                            <div class="tab-content">
-                                <div class="tab-pane active" id="textual" role="tabpanel"> 
+                            <div class="tab-content mb-3">
+                                <div class="tab-pane" id="textual" role="tabpanel"> 
                                     <table class="table table-striped">
                                         <thead>
                                             <tr>
@@ -103,52 +116,13 @@
                                                 <th>Seats Available</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                        <?php
-                                                                                
-                                            $select_path = "select DISTINCT r.name, r.seats 
-                                            from room r, reservation re
-                                            where r.name != re.room_name";
-                                            $result = mysqli_query($conn, $select_path);
-                                            while($row = $result->fetch_assoc()){
-                                                echo '<tr>
-                                                    <th scope="row">' . $row['name'] . '</th>
-                                                    <td>' . $row['seats'] . '</td>
-                                                    
-                                                    </tr>';
-                                            }
-                                            
-                                            /*
-                                            if(isset($_POST['searchform'])){
-                                                $s = $_POST['s'];
-                                                $f = $_POST['f'];
-                                                $t = $_POST['t'];
-                                                if($t != '' and $f != ''){
-                                                $select_path = "SELECT r.name as name, r.seats as seats
-                                                                from room r
-                                                                WHERE r.name not IN (
-                                                                select DISTINCT re1.room_name
-                                                                from reservation re1
-                                                                where (('" . $f . "'<date_to) and ('" . $f . "'>=date_from)) 
-                                                                OR (('" . $t . "'>=date_from) AND ('" . $t . "'<=date_to)))";
-                                                $result = mysqli_query($conn, $select_path);
-                                            while($row = $result->fetch_assoc()){
-                                                echo '<tr>
-                                                    <th scope="row">' . $row['name'] . '</th>
-                                                    <td>' . $row['seats'] . '</td>
-                                                    
-                                                    </tr>';
-                                            }
-                                            }
-                                            }   
-                                            */
-                                                                                
-                                        ?>
+                                        <tbody id="textTableBodyRooms">
+											<!-- app.js, function( updateTableInRoom ) will fill the table -->
                                         </tbody>
                                     </table>
                                 </div><!-- end tab textual-->
-                                <div class="tab-pane" id="graphic" role="tabpanel">
-                                    Map...
+                                <div class="tab-pane active" id="graphic" role="tabpanel">
+                                    <div id="map"></div>
                                 </div>
                             </div>
                         </div> <!-- end row-->
@@ -162,9 +136,12 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" integrity="sha384-3ceskX3iaEnIogmQchP8opvBy3Mi7Ce34nWjpBIwVTHfGYWQS9jwHDVRnpKKHJg7" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.7/js/tether.min.js" integrity="sha384-XTs3FgkjiBgo8qjEjBk0tGmf3wPrWtA6coPfQDfFEY8AnYJwjalXCiosYRBIBZX8" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js" integrity="sha384-BLiI7JTZm+JWlgKa0M0kGRpJbF2J8q+qreVrKBC47e3K6BW78kGLrCkeRX6I9RoK" crossorigin="anonymous"></script>
-
-        <!-- Custom JS -->
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <!-- Mapbox JS -->
+        <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.29.0/mapbox-gl.js'></script>
+        <!-- Custom JS -->
         <script type="text/javascript" src="js/app.js"></script>
+        <script type="text/javascript" src="js/map.js"></script>
+		<script type="text/javascript" src="js/sqlHandler.js"></script>
     </body>
 </html>

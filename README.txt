@@ -1,6 +1,7 @@
 How to run with MAMP:
 1. Install and run MAMP (free version is enough). https://www.mamp.info/en/downloads/
 2. Start servers (both Apache and MySQL).
+3. To be able to use map functionality make sure that you have the latest php version, PHP >= 7.0.x
 
 Importing the database:
 1. Click "Open start page".

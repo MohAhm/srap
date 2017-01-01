@@ -2,6 +2,7 @@
 session_start();
 include 'connect_mysql.php';
 
+
 $from = $_POST['from'];
 $to = $_POST['to'];
 $seats = $_POST['seats_num'];//4
