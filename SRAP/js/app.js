@@ -25,10 +25,10 @@ function createNewBookElement(dateFrom, dateTo, seats, room)
 {
 	var $listItem = $("<li></li>");
 	var $dateHolder = $("<h4></h4>");
-	var $dateTo = $("<span id='li_date_to'></span>")
-	var $dateFrom = $("<span id='li_date_from'></span>")
+	var $dateTo = $("<span id='li_date_to'></span>");
+	var $dateFrom = $("<span id='li_date_from'></span>");
 	var $rName = $("<span id='li_room_name'></span>");
-	var $seats = $("<span id='li_seats'></span>")
+	var $seats = $("<span id='li_seats'></span>");
 
 	$listItem.addClass("list-group-item");
 	
@@ -39,7 +39,7 @@ function createNewBookElement(dateFrom, dateTo, seats, room)
 	
 	$dateHolder.addClass("list-group-item-heading");
 	$dateHolder.append($dateFrom);
-	$dateHolder.append(" - ")
+	$dateHolder.append(" - ");
 	$dateHolder.append($dateTo);
 	$dateHolder.append(
 		$("<span class='tag tag-pill float-xs-right'/>").append(

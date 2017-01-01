@@ -43,11 +43,11 @@
         <div class="container-fluid">
             <div class="row">
                 <!-- sidebar--> 
-				<ul id="sidebar" class="nav nav-pills nav-stacked col-md-3 col-sm-2 col-xs-2">
+                <ul id="sidebar" class="nav nav-pills nav-stacked col-sm-3 col-md-2">
                     <li class="nav-item">
                         <a class="nav-link" href="index.php">
                             <img class="icon" src="img/add.svg" alt="icon">
-                            <span class="hidden-sm-down">Add Booking</span>
+                            <span class="hidden-sm-down">Bookings</span>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -61,7 +61,7 @@
                     echo '<li class="nav-item">
                         <a class="nav-link" href="admin.php">
                             <img class="icon" style="weight:"24px" height="24px" " src="img/admin.png" alt="icon">
-                            <span class="hidden-sm-down">Administration</span>
+                            <span class="hidden-sm-down">Settings</span>
                         </a>
                     </li>';
                     }
@@ -70,30 +70,32 @@
                 <!-- end sidebar--> 
                 
                 <!-- main -->
-                <div id="main" class="col-md-9 offset-md-3 col-sm-10 offset-sm-2 offset-xs-1">
-                    <h1 class="mb-3">Available Rooms</h1>
+                <div id="main" class="col-sm-9 offset-sm-3 col-md-10 offset-md-2">
+                    <h2 class="mb-3">Available Rooms</h2>
                     <form method="post" class="mb-3">
-                        <fieldset class="form-group mb-2">
-                            <label for="from">Date From:</label>
-                            <input type="text" class="form-control form-control-warning" id="start_date" placeholder="yyyy-mm-dd" autocomplete="off" maxlength="10" name="from">
-                            <div class="form-control-feedback">Date must be in the format of YYYY-MM-DD</div>
-                        </fieldset>
-                        <fieldset class="form-group mb-2">
-                            <label for="to">Date To:</label>
-                            <input type="text" class="form-control form-control-warning" id="end_date" placeholder="yyyy-mm-dd" autocomplete="off" maxlength="10" name="to">
-                            <div class="form-control-feedback">Date must be in the format of YYYY-MM-DD</div>
-                        </fieldset>
-                        <fieldset class="form-group">
-                            <label for="seats">Seats:</label>
-                            <select class="form-control custom-select" id="seats" name="s">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
-                            </select>
-                        </fieldset>
+                        <div class="row">
+                            <fieldset class="form-group mb-2 col-md-4">
+                                <label for="from">Date From:</label>
+                                <input type="text" class="form-control form-control-warning" id="start_date" placeholder="yyyy-mm-dd" autocomplete="off" maxlength="10" name="from">
+                                <div class="form-control-feedback">Date must be in the format of YYYY-MM-DD</div>
+                            </fieldset>
+                            <fieldset class="form-group mb-2 col-md-4">
+                                <label for="to">Date To:</label>
+                                <input type="text" class="form-control form-control-warning" id="end_date" placeholder="yyyy-mm-dd" autocomplete="off" maxlength="10" name="to">
+                                <div class="form-control-feedback">Date must be in the format of YYYY-MM-DD</div>
+                            </fieldset>
+                            <fieldset class="form-group col-md-2">
+                                <label for="seats">Seats:</label>
+                                <select class="form-control custom-select" id="seats" name="s">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                </select>
+                            </fieldset>
+                        </div>
                     </form>
                     <div class="container-fluid">
                         <div class="row">
