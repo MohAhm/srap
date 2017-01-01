@@ -45,11 +45,11 @@
         <div class="container-fluid">
             <div class="row">
                 <!-- sidebar--> 
-				<ul id="sidebar" class="nav nav-pills nav-stacked col-md-3 col-sm-2 col-xs-2">
+                <ul id="sidebar" class="nav nav-pills nav-stacked col-sm-3 col-md-2">
                     <li class="nav-item">
                         <a class="nav-link" href="index.php">
                             <img class="icon" src="img/add.svg" alt="icon">
-                            <span class="hidden-sm-down">Add Booking</span>
+                            <span class="hidden-sm-down">Bookings</span>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -58,20 +58,21 @@
                             <span class="hidden-sm-down">Rooms</span>
                         </a>
                     </li>
-					<?php if($_SESSION["role"] == 'admin') {
-					echo '<li class="nav-item">
+                    <?php
+                    if($_SESSION["role"] == 'admin') {
+                    echo '<li class="nav-item">
                         <a class="nav-link" href="admin.php">
-                            <img class="icon" style="weight:"24px" height="24px" src="img/admin.png" alt="icon">
-                            <span class="hidden-sm-down">Administration</span>
+                            <img class="icon" style="weight:"24px" height="24px" " src="img/admin.png" alt="icon">
+                            <span class="hidden-sm-down">Settings</span>
                         </a>
-						</li>';
-					}
-					?>
+                    </li>';
+                    }
+                    ?>
                 </ul>
                 <!-- end sidebar--> 
                 
                 <!-- main -->
-                <div id="main" class="col-md-9 offset-md-3 col-sm-10 offset-sm-2 offset-xs-1">
+                <div id="main" class="col-sm-9 offset-sm-3 col-md-10 offset-md-2">
                     <div class="container-fluid">
                         <div class="row">
 
@@ -86,20 +87,31 @@
                             <!-- tab content -->
                             <div class="tab-content">
                                 <div class="tab-pane active" id="bookedRooms" role="tabpanel"> 
+									<h2 class="mb-3">Booked Rooms</h2>
+									<form method="post" class="mb-2">
+                                        <div class="row">
+    										<fieldset class="form-group mb-2 col-md-4">
+    										    <label for="from">Date From:</label>
+    											<input type="text" class="form-control form-control-warning" id="start_date" placeholder="yyyy-mm-dd" autocomplete="off" maxlength="10" name="from">
+    											<div class="form-control-feedback">Date must be in the format of YYYY-MM-DD</div>
+    										</fieldset>
+    										<fieldset class="form-group mb-2 col-md-4">
+    											<label for="to">Date To:</label>
+    											<input type="text" class="form-control form-control-warning" id="end_date" placeholder="yyyy-mm-dd" autocomplete="off" maxlength="10" name="to">
+    											<div class="form-control-feedback">Date must be in the format of YYYY-MM-DD</div>
+    										</fieldset>
+                                        </div>
+									</form>
                                     <table class="table table-striped">
-										<h1 class="mb-3">Booked Rooms</h1>
-										<form method="post" class="mb-3">
-											<fieldset class="form-group mb-2">
-												<label for="from">Date From:</label>
-												<input type="text" class="form-control form-control-warning" id="start_date" placeholder="yyyy-mm-dd" autocomplete="off" maxlength="10" name="from">
-												<div class="form-control-feedback">Date must be in the format of YYYY-MM-DD</div>
-											</fieldset>
-											<fieldset class="form-group mb-2">
-												<label for="to">Date To:</label>
-												<input type="text" class="form-control form-control-warning" id="end_date" placeholder="yyyy-mm-dd" autocomplete="off" maxlength="10" name="to">
-												<div class="form-control-feedback">Date must be in the format of YYYY-MM-DD</div>
-											</fieldset>
-										</form>
+                                        <thead>
+                                            <tr>
+                                                <th>User</th>
+                                                <th>Rooms</th>
+                                                <th>Seats</th>
+                                                <th>Date</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
 										<tbody id="AdminList">
 											<!-- app.js, function( updateAdminList ) will fill the table -->
 										</tbody> 
@@ -107,7 +119,7 @@
 									
                                 </div><!-- end tab textual-->
                                 <div class="tab-pane" id="changeAvailable" role="tabpanel">
-										<h1 class="mb-3">Change Available Rooms</h1>
+										<h2 class="mb-3">Change Available Rooms</h2>
 										<form method="post" class="mb-3">
 											<fieldset class="form-group mb-2">
 												<label for="room">Room Name:</label>

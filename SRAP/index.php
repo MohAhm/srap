@@ -47,11 +47,11 @@
         <div class="container-fluid">
             <div class="row">
                 <!-- sidebar-->   
-                <ul id="sidebar" class="nav nav-pills nav-stacked col-md-3 col-sm-2 col-xs-2">
+                <ul id="sidebar" class="nav nav-pills nav-stacked col-sm-3 col-md-2">
                     <li class="nav-item">
                         <a class="nav-link" href="index.php">
                             <img class="icon" src="img/add.svg" alt="icon">
-                            <span class="hidden-sm-down">Add Booking</span>
+                            <span class="hidden-sm-down">Bookings</span>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -65,7 +65,7 @@
                     echo '<li class="nav-item">
                         <a class="nav-link" href="admin.php">
                             <img class="icon" style="weight:"24px" height="24px" " src="img/admin.png" alt="icon">
-                            <span class="hidden-sm-down">Administration</span>
+                            <span class="hidden-sm-down">Settings</span>
                         </a>
                     </li>';
                     }
@@ -74,13 +74,12 @@
                 <!-- end sidebar--> 
                 
                 <!-- main -->
-                <div id="main" class="col-md-9 offset-md-3 col-sm-10 offset-sm-2 offset-xs-1">
-                    <h1 class="mb-2 pl-1">Add Booking</h1>
+                <div id="main" class="col-sm-9 offset-sm-3 col-md-10 offset-md-2">
+                    <h2 class="mb-2 pl-1">Add Booking</h2>
                     
                     <div class="container-fluid">
                         <div class="row">
-							<div id="map"></div>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <!-- form-->
                                 <form action="booking.php" method="post">
                                     <fieldset class="form-group mb-2">
@@ -106,24 +105,23 @@
                                     </fieldset>
                                     <fieldset class="form-group mb-2">
                                         <label for="room">Room Name:</label>
-                                        <select class="custom-select form-control" id="room" name="room_name">
-										    <?php
-											    /*$select_path = "select name from room";
-												$result = mysqli_query($conn, $select_path);
-											    while($row = $result->fetch_assoc()){
-												    echo '<option>' . $row['name'] . '</option>';
-											    }*/
-											?>
-                                        </select> 
+                                        <select class="custom-select form-control" id="room" name="room_name"></select> 
                                     </fieldset>
                                     <fieldset class="form-group mb-2">
                                         <label for="name">Name:</label>
-                                        <input type="text" class="form-control" id="name" placeholder="<?php echo $_SESSION["username"]; ?>" disabled>
+                                        <?php  if($_SESSION["role"] == 'admin') { ?>
+                                            <input type="text" class="form-control" id="name">
+                                        <?php } else { ?>
+                                            <input type="text" class="form-control" id="name" placeholder="<?php echo $_SESSION["username"]; ?>" disabled>
+                                        <?php } ?>
                                     </fieldset>                                   
                                     <input id="add_book" class="btn btn-primary btn-lg" type="button" value="Book">
                                 </form><!-- end form-->
                             </div>
-                            <div class="col-md-6 offset-md-2 bg-success pb-3">
+                            <!-- Map -->
+                            <div id="map" class="col-md-8 offset-md-1"></div>
+
+                            <div class="col-md-12 bg-success mt-3 pb-3">
                                 <h3 class="my-2">My Bookings:</h3>
 								<ul id="booking" class="list-group">
 								<?php

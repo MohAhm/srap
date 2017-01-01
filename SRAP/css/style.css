@@ -69,7 +69,7 @@ a,
     Topbar
 /**********************************************/
 #topbar {
-    border-bottom: 1px solid #EE3333;
+    border-bottom: 1px solid #D83D00;
     background-color: #FFF;
 }
 
@@ -116,12 +116,12 @@ a,
     overflow-x: hidden;
     overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
     background-color: #F5EFE6;
-    border-right: 1px solid #EE3333;
+    border-right: 1px solid #D83D00;
 }
 
 #sidebar .nav-item a {
     color: #333;
-    border-bottom: 1px solid #EE3333;
+    border-bottom: 1px solid #D83D00;
 }
 
 #sidebar .nav-item a:hover,
@@ -337,8 +337,8 @@ a,
 
 /* Map */
 #map {
-    width: 100%; 
-    height: 500px;
+    padding: 0;
+    height: 400px;
     border: 1px solid #808080;
 }
 

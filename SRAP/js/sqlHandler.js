@@ -28,7 +28,7 @@ function updateMapAndText(dateFrom, dateTo, seats)
 					},
 					"filter":["==", "status", layer[0]]
 				});
-			})
+			});
 		}
 		
 		// else if source layer exist, just update map
