@@ -92,7 +92,7 @@ function updateAdminList(dateFrom, dateTo)
 							'<td>' + value.seats + '</td>' + 
 							'<td>' + value.date_from + ' - ' + value.date_to + '</td>' +
 							'<td> <a href="#">' +
-									'<img class="icon" src="img/cancel.svg" alt="icon">' + 
+									'<img class="icon" src="img/ic_delete.svg" alt="icon">' + 
 								 '</a>' + 
 							'</td>' + 
 					'</tr>');

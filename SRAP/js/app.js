@@ -44,7 +44,7 @@ function createNewBookElement(dateFrom, dateTo, seats, room)
 	$dateHolder.append(
 		$("<span class='tag tag-pill float-xs-right'/>").append(
 			$("<a href='#'/>").append(
-				$("<img class='icon' src='img/cancel.svg' alt='icon'/>")
+				$("<img class='icon' src='img/ic_delete.svg' alt='icon'/>")
 			)
 		)	
 	);
@@ -297,6 +297,6 @@ $("#change_room_availability").click(function() {
 });
 
 // events in input
-$username.focus(textInputEvent).keydown(textInputEvent).keyup(textInputEvent);
-$password.focus(textInputEvent).keydown(textInputEvent).keyup(textInputEvent);
+// $username.focus(textInputEvent).keydown(textInputEvent).keyup(textInputEvent);
+// $password.focus(textInputEvent).keydown(textInputEvent).keyup(textInputEvent);
 

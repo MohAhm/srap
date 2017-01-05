@@ -79,9 +79,6 @@ a,
 
 .name {
     font-weight: 600;
-    padding: 0 0 0 30px;
-    background-repeat: no-repeat;
-    background-image: url(../img/user.svg);
 }
 
 .btn-outline-warning {
@@ -136,6 +133,16 @@ a,
 
 .nav-stacked .nav-item+.nav-item {
     margin-top: 0;
+}
+
+.nav-pills .nav-link.active,
+.nav-pills .nav-link.active:hover {
+    background-color: transparent;  
+      
+}
+
+.nav-pills .nav-link.active span {
+    color: #D83D00;
 }
 
 .icon {
@@ -201,9 +208,13 @@ a,
     border: 1px solid #808080;
     border-radius: 0 !important;
 }
- 
+
+.form-control-warning {
+    background-image: url(../img/ic_date.svg);
+}
+
 .has-warning .form-control-warning {
-    background-image: url(../img/warn.svg);
+    background-image: url(../img/ic_error.svg);
 }
 
 .form-signin {
@@ -260,7 +271,7 @@ a,
 
 /** Calendar **/
 .ui-datepicker {
-    background-color: #D83D00;
+    background-color: #EE5500;
     color: #FFF;
     width: 17rem;
     padding: .5rem;
@@ -293,14 +304,13 @@ a,
 
 .ui-datepicker-prev {
     float: left;
-    background-image: url(../img/arrow_prev.svg);
+    background-image: url(../img/ic_navigate_before.svg);
 }
 
 .ui-datepicker-next {
     float: right;
-    background-image: url(../img/arrow_next.svg);
+    background-image: url(../img/ic_navigate_next.svg);
 }
-
 
 .ui-datepicker table {
     width: 100%;
@@ -330,8 +340,9 @@ a,
 }
 
 .ui-datepicker td a:hover,
-.ui-datepicker td a:focus {
-    background-color: #EE5500;
+.ui-datepicker td a:focus,
+.ui-datepicker-current-day {
+    background-color: #D83D00;
 }
 
 

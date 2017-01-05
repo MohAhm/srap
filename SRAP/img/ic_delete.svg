@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="22px" height="28px" viewBox="0 0 22 28" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 41.2 (35397) - http://www.bohemiancoding.com/sketch -->
+    <title>ic_delete</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="RAP" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Desktop2" transform="translate(-611.000000, -298.000000)">
+            <g id="ic_delete" transform="translate(604.000000, 294.000000)">
+                <g id="Group">
+                    <polygon id="Shape" points="0 0 36 0 36 36 0 36"></polygon>
+                    <path d="M9,28.5 C9,30.15 10.35,31.5 12,31.5 L24,31.5 C25.65,31.5 27,30.15 27,28.5 L27,10.5 L9,10.5 L9,28.5 Z M12.69,17.82 L14.805,15.705 L18,18.885 L21.18,15.705 L23.295,17.82 L20.115,21 L23.295,24.18 L21.18,26.295 L18,23.115 L14.82,26.295 L12.705,24.18 L15.885,21 L12.69,17.82 Z M23.25,6 L21.75,4.5 L14.25,4.5 L12.75,6 L7.5,6 L7.5,9 L28.5,9 L28.5,6 L23.25,6 Z" id="Shape" fill="#9D102D"></path>
+                    <polygon id="Shape" points="0 0 36 0 36 36 0 36"></polygon>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

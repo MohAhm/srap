@@ -31,13 +31,13 @@
                 <p>Enter your username and password to login.</p>
                 <fieldset class="form-group mb-2">
                     <label for="username">Username:</label>
-                    <input type="text" class="form-control form-control-warning" id="username" name="username" maxlength="30">
-                    <div class="form-control-feedback">Enter your username.</div>
+                    <input type="text" class="form-control" id="username" name="username" maxlength="30">
+                    <!-- <div class="form-control-feedback">Enter your username.</div> -->
                 </fieldset>
                 <fieldset class="form-group mb-2">
                     <label for="password">Password:</label>
-                    <input type="password" class="form-control form-control-warning" id="password" name="password" maxlength="30">
-                    <div class="form-control-feedback">Enter your password.</div>
+                    <input type="password" class="form-control" id="password" name="password" maxlength="30">
+                    <!-- <div class="form-control-feedback">Enter your password.</div> -->
                 </fieldset>
                 <input id="login" class="btn btn-primary btn-lg btn-block" type="submit" value="Log in">
             </form>
