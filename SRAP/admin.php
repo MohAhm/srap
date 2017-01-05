@@ -33,7 +33,10 @@
 
                 <div id="navbar">
                     <div class="float-xs-right">
-                        <p class="d-inline mr-3 hidden-sm-down"><span class="name"><?php echo $_SESSION["username"]; ?></span></p> 
+                        <p class="d-inline mr-3 hidden-sm-down">
+                            <img class="icon" src="img/ic_person.svg" alt="icon">
+                            <span class="name"><?php echo $_SESSION["username"]; ?></span>
+                        </p> 
                         <a href="logout.php" class="btn btn-outline-warning">Logout</a>
                     </div>
                 </div>
@@ -48,21 +51,21 @@
                 <ul id="sidebar" class="nav nav-pills nav-stacked col-sm-3 col-md-2">
                     <li class="nav-item">
                         <a class="nav-link" href="index.php">
-                            <img class="icon" src="img/add.svg" alt="icon">
-                            <span class="hidden-sm-down">Bookings</span>
+                            <img class="icon" src="img/ic_add.svg" alt="icon">
+                            <span class="hidden-sm-down">Booking</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="rooms.php">
-                            <img class="icon" src="img/view.svg" alt="icon">
+                            <img class="icon" src="img/ic_room.svg" alt="icon">
                             <span class="hidden-sm-down">Rooms</span>
                         </a>
                     </li>
                     <?php
                     if($_SESSION["role"] == 'admin') {
                     echo '<li class="nav-item">
-                        <a class="nav-link" href="admin.php">
-                            <img class="icon" style="weight:"24px" height="24px" " src="img/admin.png" alt="icon">
+                        <a class="nav-link active" href="admin.php">
+                            <img class="icon" src="img/ic_settings.svg" alt="icon">
                             <span class="hidden-sm-down">Settings</span>
                         </a>
                     </li>';
@@ -73,10 +76,10 @@
                 
                 <!-- main -->
                 <div id="main" class="col-sm-9 offset-sm-3 col-md-10 offset-md-2">
+                    <h2 class="mb-3">Settings</h2>
                     <div class="container-fluid">
                         <div class="row">
-
-						<ul class="nav nav-tabs mb-2">
+						    <ul class="nav nav-tabs mb-2">
                                 <li class="nav-item">
                                     <a class="nav-link active" href="#bookedRooms" data-toggle="tab" role="tab">Booked rooms</a>
                                 </li>
@@ -87,7 +90,6 @@
                             <!-- tab content -->
                             <div class="tab-content">
                                 <div class="tab-pane active" id="bookedRooms" role="tabpanel"> 
-									<h2 class="mb-3">Booked Rooms</h2>
 									<form method="post" class="mb-2">
                                         <div class="row">
     										<fieldset class="form-group mb-2 col-md-4">
@@ -119,28 +121,25 @@
 									
                                 </div><!-- end tab textual-->
                                 <div class="tab-pane" id="changeAvailable" role="tabpanel">
-										<h2 class="mb-3">Change Available Rooms</h2>
-										<form method="post" class="mb-3">
-											<fieldset class="form-group mb-2">
-												<label for="room">Room Name:</label>
-												<select class="custom-select form-control" id="room_n" name="room_name">
-													<?php
+									<form method="post" class="mb-3">
+										<fieldset class="form-group mb-2">
+											<label for="room">Room Name:</label>
+											<select class="custom-select form-control" id="room_n" name="room_name">
+												<?php
 														
-														$select_path = "select name, available from room ORDER BY available DESC";
-														$result = mysqli_query($conn, $select_path);
-														while($row = $result->fetch_assoc()){
-															if($row['available'])
-																echo '<option>' . $row['name'] . "\t - \tavailable for booking" . '</option>';
-															else
-																echo '<option>' . $row['name'] . "\t - \tclosed for booking" . '</option>';
-														}
-													?>
-												</select> 
-											</fieldset>
-											<input id="change_room_availability" class="btn btn-primary btn-lg" type="button" value="Change room availability">
-										</form>
-									
-								
+													$select_path = "select name, available from room ORDER BY available DESC";
+													$result = mysqli_query($conn, $select_path);
+													while($row = $result->fetch_assoc()){
+														if($row['available'])
+															echo '<option>' . $row['name'] . "\t - \tavailable for booking" . '</option>';
+														else
+															echo '<option>' . $row['name'] . "\t - \tclosed for booking" . '</option>';
+													}
+												?>
+											</select> 
+										</fieldset>
+										<input id="change_room_availability" class="btn btn-primary btn-lg" type="button" value="Change">
+									</form>		
                                 </div>
                             </div>
                         </div> <!-- end row-->

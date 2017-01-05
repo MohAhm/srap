@@ -35,7 +35,10 @@
 
                 <div id="navbar">
                     <div class="float-xs-right">
-                        <p class="d-inline mr-3 hidden-sm-down"><span class="name"><?php echo $_SESSION["username"]; ?></span></p> 
+                        <p class="d-inline mr-3 hidden-sm-down">
+                            <img class="icon" src="img/ic_person.svg" alt="icon">
+                            <span class="name"><?php echo $_SESSION["username"]; ?></span>
+                        </p> 
                         <a href="logout.php" class="btn btn-outline-warning">Logout</a> 
                     </div> 
                 </div>
@@ -49,14 +52,14 @@
                 <!-- sidebar-->   
                 <ul id="sidebar" class="nav nav-pills nav-stacked col-sm-3 col-md-2">
                     <li class="nav-item">
-                        <a class="nav-link" href="index.php">
-                            <img class="icon" src="img/add.svg" alt="icon">
-                            <span class="hidden-sm-down">Bookings</span>
+                        <a class="nav-link active" href="index.php">
+                            <img class="icon" src="img/ic_add.svg" alt="icon">
+                            <span class="hidden-sm-down">Booking</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="rooms.php">
-                            <img class="icon" src="img/view.svg" alt="icon">
+                            <img class="icon" src="img/ic_room.svg" alt="icon">
                             <span class="hidden-sm-down">Rooms</span>
                         </a>
                     </li>
@@ -64,7 +67,7 @@
                     if($_SESSION["role"] == 'admin') {
                     echo '<li class="nav-item">
                         <a class="nav-link" href="admin.php">
-                            <img class="icon" style="weight:"24px" height="24px" " src="img/admin.png" alt="icon">
+                            <img class="icon" src="img/ic_settings.svg" alt="icon">
                             <span class="hidden-sm-down">Settings</span>
                         </a>
                     </li>';
@@ -75,7 +78,7 @@
                 
                 <!-- main -->
                 <div id="main" class="col-sm-9 offset-sm-3 col-md-10 offset-md-2">
-                    <h2 class="mb-2 pl-1">Add Booking</h2>
+                    <h2 class="mb-3 pl-1">Add Booking</h2>
                     
                     <div class="container-fluid">
                         <div class="row">
@@ -120,8 +123,8 @@
                             </div>
                             <!-- Map -->
                             <div id="map" class="col-md-8 offset-md-1"></div>
-
-                            <div class="col-md-12 bg-success mt-3 pb-3">
+                            
+                            <div class="col-md-8 offset-md-1 bg-success mt-3 pb-3">
                                 <h3 class="my-2">My Bookings:</h3>
 								<ul id="booking" class="list-group">
 								<?php
@@ -134,13 +137,13 @@
 													  <span id="li_date_from">' . $row['date_from'] . '</span> - <span id="li_date_to">' . $row['date_to'] . '</span>
 													   <span class="tag tag-pill float-xs-right">
 												            <a href="#">
-                                                                <img class="icon" src="img/cancel.svg" alt="icon">
+                                                                <img class="icon" src="img/ic_delete.svg" alt="icon">
 													        </a> 
 													   </span>
 												    </h4>
 												    <span id="li_room_name">' . $row['room_name'] . '</span>, <span id ="li_seats">' . $row['seats'] . '</span> Seat
 											    </li>';
-											}
+											} 
 								?>
                                 </ul>
                             </div>
