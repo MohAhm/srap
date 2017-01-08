@@ -32,6 +32,15 @@ map.on('click', function (e) {
 	
 });
 
+map.on('mousemove', function (e) {
+ 	
+ 	if(map.getLayer('room-0')) {
+ 		var features = map.queryRenderedFeatures(e.point, { layers: ['room-0'] });
+ 		map.getCanvas().style.cursor = (features.length) ? 'pointer' : '';
+ 	}
+ 	
+});
+
 function resetMap(){
 	
 	// room-0 is the green layer
@@ -48,16 +57,9 @@ function resetMap(){
 	}
 }
 
-/*
-map.on('mousemove', function (e) {
- 	for (var i = 0; i < 31; i++) {
- 		var features = map.queryRenderedFeatures(e.point, { layers: ['room-' + i] });
-	
- 		map.getCanvas().style.cursor = (features.length) ? 'pointer' : '';
- 	}
-});
 
-*/
+
+
 
 
 

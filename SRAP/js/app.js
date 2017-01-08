@@ -58,8 +58,6 @@ function createNewBookElement(dateFrom, dateTo, seats, room)
 	else
 		$listItem.append(" Seat");
 	
-	
-	
 	return $listItem;
 }
 
@@ -71,6 +69,10 @@ var isDateInputValid = function(date)
 {
 	var pattern = /(\d{4})-(\d{2})-(\d{2})/;
 	return pattern.test(date);
+};
+
+var isRoomEmpty = function() {
+	return $room.children().length > 0;
 };
 
 function dateInputEvent(date)
@@ -85,19 +87,6 @@ function dateInputEvent(date)
 	}
 
 }
-
-var textInputEvent = function()
-{
-	if (isInputEmpty($(this))) {
-		$(this).next().hide();
-		$(this).parent().removeClass("has-warning");
-	}
-	else {
-		$(this).next().show();
-		$(this).parent().addClass("has-warning");
-	}
-};
-
 
 $startDate.datepicker({
 	dateFormat: "yy-mm-dd",
@@ -119,9 +108,12 @@ $startDate.datepicker({
 }).on("input change", function() 
 {
 	console.log("Start date change ...");
+
     dateInputEvent($(this));
+    
 	var path = window.location.pathname;
 	if(path.includes('index.php')){
+		enableBookingEvent();
 		updateMapAndText($startDate.val(), $endDate.val(), $seats.val());
 	}
 	else if(path.includes('rooms.php')){
@@ -153,9 +145,12 @@ $endDate.datepicker({
 }).on("input change", function() 
 {
 	console.log("End date change ...");
-    dateInputEvent($(this));
+
+    dateInputEvent($(this)); 
+
     var path = window.location.pathname;
 	if(path.includes('index.php')){
+		enableBookingEvent();
 		updateMapAndText($startDate.val(), $endDate.val(), $seats.val());
 	}
 	else if(path.includes('rooms.php')){
@@ -183,44 +178,26 @@ $addBookBtn.click(function()
 {
 	console.log("Add booking ...");
 
-	var startDateValid = isDateInputValid($startDate.val());
-	var endDateValid = isDateInputValid($endDate.val());
+	var $listItem = createNewBookElement($startDate.val(), $endDate.val(), $seats.val(), $room.val());
 
-	if (startDateValid && endDateValid) {
-		var $listItem = createNewBookElement($startDate.val(), $endDate.val(), 
-										     $seats.val(), $room.val());
+	$booking.append($listItem);
 
-		$booking.append($listItem);
+	// ## add values to the db ##
+	$.ajax({
+		url: 'booking.php',
+		type: 'post',
+		data: { "from": $startDate.val(), "to": $endDate.val(), "seats_num": $seats.val(), "room_name": $room.val()},
+		success: function(response) { }
+	});
 
-		// ## add values to the db ##
-		$.ajax({
-			url: 'booking.php',
-			type: 'post',
-			data: { "from": $startDate.val(), "to": $endDate.val(), "seats_num": $seats.val(), "room_name": $room.val()},
-			success: function(response) { }
-		});
+	// reset values
+	$startDate.val("");
+	$endDate.val("");
+	$("#room").children().remove();
+	$("#name").val("");
+	resetMap();
 
-		// reset values
-		$startDate.val("");
-		$endDate.val("");
-		$("#room").children().remove();
-		resetMap();
-	}
-	else if (startDateValid && !(endDateValid)) {
-		$endDate.next().show();
-		$endDate.parent().addClass("has-warning");
-	}
-	else if (!(startDateValid) && endDateValid) {
-		$startDate.next().show();
-		$startDate.parent().addClass("has-warning");
-	}
-	else {
-		$startDate.next().show();
-		$startDate.parent().addClass("has-warning");
-		$endDate.next().show();
-		$endDate.parent().addClass("has-warning");
-	}
-});
+}).prop("disabled", !canBook());
 
 // cancel booking
 $booking.on("click", "a", function() 
@@ -296,7 +273,28 @@ $("#change_room_availability").click(function() {
 	window.location = "admin.php";
 });
 
-// events in input
-// $username.focus(textInputEvent).keydown(textInputEvent).keyup(textInputEvent);
-// $password.focus(textInputEvent).keydown(textInputEvent).keyup(textInputEvent);
+
+// disable button for empty inputs
+function canBook() {
+	return isDateInputValid($startDate.val()) && isDateInputValid($endDate.val());
+}
+
+var enableBookingEvent = function() {
+	$addBookBtn.prop("disabled", !canBook());
+};
+
+
+function canLogin() {
+	return isInputEmpty($username) && isInputEmpty($password);
+}
+
+function enableLoginEvent() {
+	$loginBtn.prop("disabled", !canLogin());
+}
+
+$username.focus(enableLoginEvent).keyup(enableLoginEvent);
+$password.focus(enableLoginEvent).keyup(enableLoginEvent);
+
+enableLoginEvent();
+
 

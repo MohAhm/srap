@@ -1,11 +1,3 @@
-<?php
-    session_start();
-
-    if(isset($_POST['username'])){
-        $_SESSION['username'] = $_POST['username'];
-    }
-?>
-
 <!DOCTYPE html>
 <html lang="en"> 
     <head>
@@ -32,14 +24,23 @@
                 <fieldset class="form-group mb-2">
                     <label for="username">Username:</label>
                     <input type="text" class="form-control" id="username" name="username" maxlength="30">
-                    <!-- <div class="form-control-feedback">Enter your username.</div> -->
                 </fieldset>
                 <fieldset class="form-group mb-2">
                     <label for="password">Password:</label>
                     <input type="password" class="form-control" id="password" name="password" maxlength="30">
-                    <!-- <div class="form-control-feedback">Enter your password.</div> -->
                 </fieldset>
-                <input id="login" class="btn btn-primary btn-lg btn-block" type="submit" value="Log in">
+                <input id="login" class="btn btn-primary btn-lg btn-block mb-2" type="submit" value="Log in">
+                
+                <?php 
+                     if (isset($_GET['error'])) {
+                        $error = $_GET['error'];
+                    
+                ?>
+                    <p class="error">
+                        <img class="icon" src="img/ic_error.svg" alt="icon">
+                        <span><?php echo $error; ?></span>
+                    </p> 
+                <?php } ?>
             </form>
         </div>
 
