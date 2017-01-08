@@ -1,25 +1,28 @@
 <?php  
-session_start(); 
-include 'connect_mysql.php';
-$_SESSION["username"]= $_POST["username"]; 
-$pass= $_POST["password"]; 
-$name = $_SESSION["username"];    
-/*$query=("SELECT username FROM user "
-          . "WHERE username='" . $name . "' and "
-          . "password='" . $pass . "'");   
-		  $rs= mysql_query($query,$conn);   
-		  $nr = mysql_num_rows($rs);*/
-		  
-		  $sql = sprintf("SELECT username, role  FROM user WHERE username= '" . $name . "'
-		  and password = '" . $pass . "'", mysqli_real_escape_string($conn, $_POST['username']));
-          $result = mysqli_query($conn, $sql) or die("1");
-          $row = mysqli_fetch_assoc($result) or header("Location:login.php"); 
-		  
-		  
-		  if($row == true){
+
+	if ($_POST)	{
+
+		$name 	  = htmlspecialchars(trim($_POST['username']));
+		$password = htmlspecialchars(($_POST['password']));
+
+		include 'connect_mysql.php';
+
+		$query = mysqli_query($conn, "SELECT username, role FROM user WHERE username LIKE '$name' AND password LIKE '$password'");
+		$row = mysqli_fetch_assoc($query);
+
+		if ($row == true) {
+
+			session_start();
+
+			$_SESSION['username'] = $name;	
 			$_SESSION['role'] = $row['role']; 
-			header("Location:index.php");  
-		  }
-		  
-		  
-		  ?>
+
+			header("Location:index.php"); 
+		}
+		else {
+			$error = urlencode("Username or password is incorrect.");
+			header("Location:login.php?error=$error");
+		}	
+	}
+	  
+?>

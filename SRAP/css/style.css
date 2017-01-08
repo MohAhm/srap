@@ -138,7 +138,6 @@ a,
 .nav-pills .nav-link.active,
 .nav-pills .nav-link.active:hover {
     background-color: transparent;  
-      
 }
 
 .nav-pills .nav-link.active span {
@@ -223,6 +222,10 @@ a,
     padding: 10px 20px;
 }
 
+.error {
+    color: #9D102D;
+    font-weight: 600;
+}
 
 /** Tab **/
 .nav-tabs {
@@ -250,6 +253,10 @@ a,
     border-right-color: #808080;
     border-left-color: #808080;
     color: #333;
+}
+
+.btn-primary:disabled:hover {
+    background-color: #D83D00;  
 }
 
 
